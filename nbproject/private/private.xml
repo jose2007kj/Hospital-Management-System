@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/SubClinicFxmlDocumentController.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/SupplierWindowController.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/patientModel.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/supplierModel.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/StockModel.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/patientsModel.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/view/dentalFxmlDocument.fxml</file>
+        </group>
     </open-files>
 </project-private>

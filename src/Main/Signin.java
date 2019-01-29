@@ -1,6 +1,7 @@
 package Main;
 
 import controller.ClinicsMainWindowController;
+import controller.PatientConroller;
 import controller.SigninFXMLController;
 import controller.StatisticsFxmlDocumentController;
 import controller.SubClinicFxmlDocumentController;
@@ -25,6 +26,7 @@ public class Signin extends Application {
 
     static Stage stageprim, stage1, stage2, stage4, stage3, stage5, stage6,stage7;
     public String clinicName = "";
+    public String pageName="";
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -126,13 +128,56 @@ public class Signin extends Application {
     public void SubClinicWindow() {
 
         try {
-            FXMLLoader loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
-            AnchorPane pane = loader.load();
-//            SubClinicFxmlDocumentController controller = loader.getController();
-            SupplierWindowController controller = loader.getController();
-            
+            FXMLLoader loader;
+            AnchorPane pane;
             stage4 = new Stage();
-            controller.main(this, stage4);
+//            SubClinicFxmlDocumentController controller = loader.getController();
+            switch(pageName){
+                case "Supplier":
+                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    pane = loader.load();
+                    SupplierWindowController controller = loader.getController();
+                    controller.main(this, stage4);
+                    break;
+                case "Purchase":
+                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    pane = loader.load();
+                    
+                    break;
+                case "Stock":
+                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    pane = loader.load();
+                    
+                    break;
+                case "Consultation":
+                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    pane = loader.load();
+                    
+                    break;
+                case "Bill":
+                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    pane = loader.load();
+                    
+                    break;
+                case "Patient":
+                    loader = new FXMLLoader(Signin.class.getResource("/view/PatientFXML.fxml"));
+                    pane = loader.load();
+                    PatientConroller patientController=loader.getController();
+                    patientController.main(this, stage4);
+                    break;
+                   
+                default:
+                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    pane = loader.load();
+                    
+                    
+                    
+            };
+            
+//            PatientConroller patient=loader.get
+            
+            
+//            controller.main(this, stage4);
             Scene scene = new Scene(pane);
             scene.getStylesheets().add(Signin.class.getResource("/style/StyleSheet.css").toExternalForm());
             stage4.setTitle(clinicName + " Clinic");

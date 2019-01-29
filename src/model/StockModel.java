@@ -12,7 +12,7 @@ import javafx.beans.property.StringProperty;
  *
  * @author mary
  */
-public class StockModel extends RecursiveTreeObject<supplierModel>{ 
+public class StockModel extends RecursiveTreeObject<StockModel>{ 
     public StringProperty itemName,itemPrice,itemQuantity;
 //   public int sup_id;
 

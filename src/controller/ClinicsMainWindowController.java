@@ -129,7 +129,7 @@ public class ClinicsMainWindowController implements Initializable {
     @FXML
     public void OpenClinicWindow0(ActionEvent event) {
         try {
-            
+            signin.pageName="Supplier";
             tableName = "Supplier";
             signin.clinicName = "Supplier";
             signin.SubClinicWindow();
@@ -141,7 +141,8 @@ public class ClinicsMainWindowController implements Initializable {
     @FXML
     public void OpenClinicWindow1(ActionEvent event) {
         try {
-            tableName = "physiotherapy";
+            signin.pageName="Purchase";
+            tableName = "purchase_details";
             signin.clinicName = "Physiotherapy";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
@@ -153,7 +154,8 @@ public class ClinicsMainWindowController implements Initializable {
     @FXML
     public void OpenClinicWindow2(ActionEvent event) {
         try {
-            tableName = "neurology";
+            signin.pageName="Stock";
+            tableName = "stock";
             signin.clinicName = "Neurology";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
@@ -165,7 +167,8 @@ public class ClinicsMainWindowController implements Initializable {
     @FXML
     public void OpenClinicWindow3(ActionEvent event) {
         try {
-            tableName = "cardiology";
+            signin.pageName="Consultation";
+            tableName = "consultation";
             signin.clinicName = "cardiology";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
@@ -177,7 +180,8 @@ public class ClinicsMainWindowController implements Initializable {
     @FXML
     public void OpenClinicWindow4(ActionEvent event) {
         try {
-            tableName = "earnose";
+            signin.pageName="Bill";
+            tableName = "bill_details";
             signin.clinicName = "Ear and Nose";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
@@ -189,8 +193,9 @@ public class ClinicsMainWindowController implements Initializable {
     @FXML
     public void OpenClinicWindow5(ActionEvent event) {
         try {
-            tableName = "orthopedics";
-            signin.clinicName = "Orthopedics";
+            signin.pageName="Patient";
+            tableName = "Patient";
+            signin.clinicName = "Patient";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
 
@@ -198,39 +203,39 @@ public class ClinicsMainWindowController implements Initializable {
         }
     }
 
-    @FXML
-    public void OpenClinicWindow6(ActionEvent event) {
-        try {
-            tableName = "dentalclinic";
-            signin.clinicName = "Dental";
-            signin.SubClinicWindow();
-            signin.clinicsWindowClose();
-
-        } catch (Exception ex) {
-        }
-    }
-
-    @FXML
-    public void OpenClinicWindow7(ActionEvent event) {
-        try {
-            tableName = "dermatology";
-            signin.clinicName = "Dermatology";
-            signin.SubClinicWindow();
-            signin.clinicsWindowClose();
-
-        } catch (Exception ex) {
-        }
-    }
-
-    @FXML
-    public void OpenClinicWindow8(ActionEvent event) {
-        try {
-            tableName = "ophthalmology";
-            signin.clinicName = "Ophthalmology";
-            signin.SubClinicWindow();
-            signin.clinicsWindowClose();
-
-        } catch (Exception ex) {
-        }
-    }
+//    @FXML
+//    public void OpenClinicWindow6(ActionEvent event) {
+//        try {
+//            tableName = "dentalclinic";
+//            signin.clinicName = "Dental";
+//            signin.SubClinicWindow();
+//            signin.clinicsWindowClose();
+//
+//        } catch (Exception ex) {
+//        }
+//    }
+//
+//    @FXML
+//    public void OpenClinicWindow7(ActionEvent event) {
+//        try {
+//            tableName = "dermatology";
+//            signin.clinicName = "Dermatology";
+//            signin.SubClinicWindow();
+//            signin.clinicsWindowClose();
+//
+//        } catch (Exception ex) {
+//        }
+//    }
+//
+//    @FXML
+//    public void OpenClinicWindow8(ActionEvent event) {
+//        try {
+//            tableName = "ophthalmology";
+//            signin.clinicName = "Ophthalmology";
+//            signin.SubClinicWindow();
+//            signin.clinicsWindowClose();
+//
+//        } catch (Exception ex) {
+//        }
+//    }
 }
