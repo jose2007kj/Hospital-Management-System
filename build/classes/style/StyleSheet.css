@@ -130,5 +130,18 @@
 .tree-table-row-cell .jfx-text-field{
     -fx-focus-color: rgba(240,40,40);
 }
+.layout {
+  -fx-background-color: cornsilk;
+}
+
+#selected-fruit-frame {
+  -fx-border-color: burlywood;
+  -fx-border-width: 5;
+  -fx-background-color: white;
+}
+
+.bold-label {
+  -fx-font-weight: bold;
+}
 
 

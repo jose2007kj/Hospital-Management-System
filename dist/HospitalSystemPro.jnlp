@@ -8,10 +8,10 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="HospitalSystemPro.jar" size="1700074" download="eager" />
-    <jar href="lib/controlsfx-8.40.12.jar" size="1069605" download="eager" />
-    <jar href="lib/jfoenix-8.0.8.jar" size="2809071" download="eager" />
-    <jar href="lib/mysql-connector-java-5.1.36.jar" size="1010597" download="eager" />
+    <jar href="HospitalSystemPro.jar" size="1735900" download="eager" />
+    <jar href="lib/controlsfx-8.40.12.jar" size="1069604" download="eager" />
+    <jar href="lib/jfoenix-8.0.8.jar" size="2809072" download="eager" />
+    <jar href="lib/mysql-connector-java-5.1.36.jar" size="1010595" download="eager" />
   </resources>
 <security>
   <all-permissions/>

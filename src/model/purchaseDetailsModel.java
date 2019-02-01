@@ -13,16 +13,16 @@ import javafx.beans.property.StringProperty;
  * @author mary
  */
 public class purchaseDetailsModel extends RecursiveTreeObject<purchaseDetailsModel> {
-private StringProperty purchaseId;
-private StringProperty supName;
-private StringProperty purchaseDate;
-private StringProperty itemName;
-private StringProperty expiryDate;
-private StringProperty qty;
-private StringProperty total;
+public StringProperty purchaseId;
+public StringProperty supName;
+public StringProperty purchaseDate;
+public StringProperty itemName;
+public StringProperty expiryDate;
+public StringProperty qty;
+public StringProperty total;
 //private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-public purchaseDetailsModel(String supName,String purchaseDate,String itemName,String expiryDate,String qty,String total) {
+public purchaseDetailsModel(String supName,String itemName,String purchaseDate,String expiryDate,String qty,String total) {
         this.supName=new SimpleStringProperty(supName);
         this.purchaseDate=new SimpleStringProperty(purchaseDate);
         this.itemName=new SimpleStringProperty(itemName);

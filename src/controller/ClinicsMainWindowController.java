@@ -143,7 +143,7 @@ public class ClinicsMainWindowController implements Initializable {
         try {
             signin.pageName="Purchase";
             tableName = "purchase_details";
-            signin.clinicName = "Physiotherapy";
+            signin.clinicName = "Purchase Details";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
 
@@ -156,7 +156,7 @@ public class ClinicsMainWindowController implements Initializable {
         try {
             signin.pageName="Stock";
             tableName = "stock";
-            signin.clinicName = "Neurology";
+            signin.clinicName = "Stock";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
 
@@ -169,7 +169,7 @@ public class ClinicsMainWindowController implements Initializable {
         try {
             signin.pageName="Consultation";
             tableName = "consultation";
-            signin.clinicName = "cardiology";
+            signin.clinicName = "Consultation";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
 
@@ -182,7 +182,7 @@ public class ClinicsMainWindowController implements Initializable {
         try {
             signin.pageName="Bill";
             tableName = "bill_details";
-            signin.clinicName = "Ear and Nose";
+            signin.clinicName = "Bill";
             signin.SubClinicWindow();
             signin.clinicsWindowClose();
 

@@ -5,6 +5,8 @@ import controller.PatientConroller;
 import controller.SigninFXMLController;
 import controller.StatisticsFxmlDocumentController;
 import controller.SubClinicFxmlDocumentController;
+import controller.PurchaseDeailsController;
+import controller. StockController;
 import controller.SupplierWindowController;
 import controller.UsersController;
 import controller.aboutController;
@@ -140,13 +142,18 @@ public class Signin extends Application {
                     controller.main(this, stage4);
                     break;
                 case "Purchase":
-                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    loader = new FXMLLoader(Signin.class.getResource("/view/PurchaseFXML.fxml"));
                     pane = loader.load();
+                    PurchaseDeailsController purchaseController = loader.getController();
+                    purchaseController.main(this, stage4);
+                    
                     
                     break;
                 case "Stock":
-                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    loader = new FXMLLoader(Signin.class.getResource("/view/StockFXML.fxml"));
                     pane = loader.load();
+                    StockController StockController = loader.getController();
+                    StockController.main(this, stage4);
                     
                     break;
                 case "Consultation":
