@@ -13,14 +13,14 @@ import javafx.beans.property.StringProperty;
  * @author mary
  */
 public class CunsultationModel extends RecursiveTreeObject<CunsultationModel> {
- private StringProperty consultationId;
-private StringProperty patientId;
-private StringProperty consultDate;
-private StringProperty consultFee;
-private StringProperty consultStatus;
-private StringProperty disease;
-private StringProperty duration;
-private StringProperty medicinePrescribed;
+ public StringProperty consultationId;
+public StringProperty patientId;
+public StringProperty consultDate;
+public StringProperty consultFee;
+public StringProperty consultStatus;
+public StringProperty disease;
+public StringProperty duration;
+public StringProperty medicinePrescribed;
 public CunsultationModel(String patientId,String consultDate,String consultFee,String consultStatus,String disease,String duration,String medicinePrescribed) {
         this.patientId=new SimpleStringProperty(patientId);
         this.consultDate=new SimpleStringProperty(consultDate);

@@ -157,7 +157,7 @@ public class Signin extends Application {
                     
                     break;
                 case "Consultation":
-                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    loader = new FXMLLoader(Signin.class.getResource("/view/ConsultationFXML.fxml"));
                     pane = loader.load();
                     
                     break;

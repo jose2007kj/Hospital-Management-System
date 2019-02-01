@@ -299,7 +299,7 @@ public class PatientConroller implements Initializable {
         try {
             
             insert(patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText());
-            patientsList.add(new patientsModel(patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText()));
+            patientsList.add(new patientsModel("0",patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText()));
        
         }
         catch (NullPointerException cc) {
@@ -334,7 +334,7 @@ public class PatientConroller implements Initializable {
                 System.out.print("result.getString(3)"+result.getString(3));
                 System.out.print("result.getString(4)"+result.getString(4));
                 System.out.print("result.getString(5)"+result.getString(5));
-                patientsList.add(new patientsModel(result.getString(2), result.getString(3),result.getString(5), result.getString(4),result.getString(6)));
+                patientsList.add(new patientsModel("0",result.getString(2), result.getString(3),result.getString(5), result.getString(4),result.getString(6)));
 
             }
         } catch (SQLException r) {
@@ -389,7 +389,7 @@ public class PatientConroller implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<patientsModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        patientsModel PatientModel = new patientsModel(patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText());
+        patientsModel PatientModel = new patientsModel("0",patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText());
         pModel.setValue(PatientModel);
 //        System.out.print("Sname"+Sname);
 //        System.out.print("Saddress"+Saddress);

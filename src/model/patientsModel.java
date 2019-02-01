@@ -21,7 +21,8 @@ public StringProperty patientAge;
 public StringProperty patientGender;
 public StringProperty patientAddress;
 public StringProperty patientContact;
-public patientsModel(String patientName,String patientAge,String patientAddress,String patientGender,String patientContact) {
+public patientsModel(String i,String patientName,String patientAge,String patientAddress,String patientGender,String patientContact) {
+        this.patientId=new SimpleStringProperty(i);
         this.patientName=new SimpleStringProperty(patientName);
         this.patientAge=new SimpleStringProperty(patientAge);
         this.patientGender=new SimpleStringProperty(patientGender);
