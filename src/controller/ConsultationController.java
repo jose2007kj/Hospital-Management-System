@@ -69,15 +69,15 @@ public class ConsultationController implements Initializable {
     @FXML
     private Label patientIdLabel,consultationDateLabel,consultFeeLabel,consultStatusLabel,diseaseLabel,durationLabel,medicinePescribedLabel;//,supplierNameLabel,itemNameLabel,consultationDateLabel,expiryDateLabel,quantityLabel,totalLabel;
 
-    String patientID,consultationDate1,consultFee,consultStatus,disease,duration,medicinePescribed;
+    String patientID,patientID1,consultationDate1,consultFee,consultStatus,disease,duration,medicinePescribed;
 
     private static Connection conn = null;
-    private static PreparedStatement stat = null;
+    private static PreparedStatement stat = null,pStat=null;
     private static String url = "jdbc:mysql://localhost:3306";
     private static String Password = "";
     private static String username = "mary";
     private static String sqlInsert;
-    ResultSet result;
+    ResultSet result,pResult;
 
     public static void showError(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -123,8 +123,22 @@ public class ConsultationController implements Initializable {
         //code for onclick combobox
         patientIdCB.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue<? extends String> selected, String oldName, String newName) {
-                String[] parts=newName.split(".");
-                patientID=parts[0];
+                patientID1=newName;
+                if(newName.contains(".")){
+                    try
+                        {
+                            
+                            String[] temp=newName.split("\\.");
+                            System.out.print("temp"+temp.length);
+                            patientID=temp[0];
+                        }catch(Exception e){
+                            System.out.print("temp"+e.toString());
+                        }
+                
+                }else{
+                patientID="";
+                }
+                
                     
 
             }
@@ -263,6 +277,7 @@ public class ConsultationController implements Initializable {
                 pId.add(result.getString(1).toString()+"."+result.getString(2).toString());
             }
             patientIdCB.setItems(pId);
+            
         } catch (SQLException r) {
             showError(r.getMessage());
         } catch (ClassNotFoundException n) {
@@ -281,7 +296,20 @@ public class ConsultationController implements Initializable {
     }
    
     public void showDetails(TreeItem<CunsultationModel> pModel) {
+         System.out.print("pModel.getValue().getPatientId()"+pModel.getValue().getPatientId());
         consultationDate.setValue(LocalDate.parse(pModel.getValue().getConsultDate()));
+        
+        if(pModel.getValue().getPatientId().contains(".")){
+            try
+            {
+                String ntemp=pModel.getValue().getPatientId();
+                String[] temp=ntemp.split("\\.");
+                System.out.print("temp"+temp.length);
+                patientID=temp[0];
+            }catch(Exception e){
+                System.out.print("temp"+e.toString());
+            }
+        }
         patientIdCB.setValue(pModel.getValue().getPatientId());
         patientIdLabel.setText(pModel.getValue().getPatientId());
         consultFeeLabel.setText(pModel.getValue().getConsultFee());
@@ -295,7 +323,7 @@ public class ConsultationController implements Initializable {
         consultFeeTF.setText(pModel.getValue().getConsultFee());
         consultStatusTF.setText(pModel.getValue().getConsultStatus());
         consultStatusLabel.setText(pModel.getValue().getConsultStatus());
-        patientID=pModel.getValue().getPatientId();
+//        patientID=pModel.getValue().getPatientId();
         consultationDate1=pModel.getValue().getConsultDate();
         consultFee=pModel.getValue().getConsultFee();
         consultStatus=pModel.getValue().getConsultStatus();
@@ -315,7 +343,7 @@ public class ConsultationController implements Initializable {
     private static void insert(int patientsID,String consultDate, int fee, String status, String disease,String duration,String medicine) {
         try {
 
-            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(patient_id,consult_date,consult_fee,consult_status,disease,duration,medicine_prescribed) VALUES (?,?,?,?,?,?)";
+            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(patient_id,consult_date,consult_fee,consult_status,disease,duration,medicine_prescribed) VALUES (?,?,?,?,?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -369,7 +397,7 @@ public class ConsultationController implements Initializable {
         try {
             
             insert(Integer.parseInt(patientID),consultationDate.getValue().toString(),Integer.parseInt(consultFeeTF.getText()),consultStatusTF.getText(),diseaseTF.getText(),durationTF.getText(),medicinePescribedTF.getText());
-            CunsultationList.add(new CunsultationModel(patientID,consultationDate.getValue().toString(),consultFeeTF.getText(),consultStatusTF.getText(),diseaseTF.getText(),durationTF.getText(),medicinePescribedTF.getText()));
+            CunsultationList.add(new CunsultationModel(patientID1,consultationDate.getValue().toString(),consultFeeTF.getText(),consultStatusTF.getText(),diseaseTF.getText(),durationTF.getText(),medicinePescribedTF.getText()));
        
         }
         catch (NullPointerException cc) {
@@ -390,6 +418,7 @@ public class ConsultationController implements Initializable {
     void addrowsToTable() {
 
         String sqlSelect = "select * from test." + ClinicsMainWindowController.tableName + " ";
+        String temp="";
 
         try {
 
@@ -401,10 +430,17 @@ public class ConsultationController implements Initializable {
 
             while (result.next()) {
                 System.out.print("result.getString(2)"+result.getString(2));
+                String sqlfetchPatients = "select * from test.Patient where patient_id='"+result.getInt(2)+"'";
+                pStat = conn.prepareStatement(sqlfetchPatients);
+                pResult=pStat.executeQuery();
+                while(pResult.next()){
+                   temp=pResult.getString(1).toString()+"."+pResult.getString(2).toString(); 
+                }
+
                 System.out.print("result.getString(3)"+result.getString(3));
                 System.out.print("result.getString(4)"+result.getString(4));
                 System.out.print("result.getString(5)"+result.getString(5));
-                CunsultationList.add(new CunsultationModel(result.getInt(2)+"",result.getString(3),result.getString(4)+"",result.getString(5), result.getString(6),result.getString(7),result.getString(8)));
+                CunsultationList.add(new CunsultationModel(temp,result.getString(3),result.getString(4)+"",result.getString(5), result.getString(6),result.getString(7),result.getString(8)));
 
             }
         } catch (SQLException r) {
@@ -430,7 +466,7 @@ public class ConsultationController implements Initializable {
             int index = tableView.getSelectionModel().getSelectedIndex();
 //            CunsultationList.remove(index);
 //            System.out.print("delete"+CunsultationList.get(index).getSupName());
-            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where patient_id='" + Integer.parseInt(CunsultationList.get(index).getPatientId())+ "' and" + " consult_date='" + CunsultationList.get(index).getConsultDate() + "' and"
+            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where patient_id='" + Integer.parseInt(patientID)+ "' and" + " consult_date='" + CunsultationList.get(index).getConsultDate() + "' and"
                 + " consult_fee='" + Integer.parseInt(CunsultationList.get(index).getConsultFee()) + "' and" + " medicine_prescribed='" + CunsultationList.get(index).getMedicinePrescribed()+ "' and" + " consult_status='" + CunsultationList.get(index).getConsultStatus() + "' and" + " disease='" + CunsultationList.get(index).getDisease() + "' and" 
                 + " duration='" + CunsultationList.get(index).getDuration() +  "'";
             Class.forName("com.mysql.jdbc.Driver");
@@ -461,14 +497,13 @@ public class ConsultationController implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<CunsultationModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        CunsultationModel PatientModel = new CunsultationModel(patientID,consultationDate.getValue().toString(),consultFeeTF.getText(),consultStatusTF.getText(),diseaseTF.getText(),durationTF.getText(),medicinePescribedTF.getText());
-        pModel.setValue(PatientModel);
+        
 //        System.out.print("Sname"+Sname);
 //        System.out.print("Saddress"+Saddress);
 //        System.out.print("Iquantity"+Iquantity);
 //        System.out.print("Pcontact"+Pcontact);
         
-        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET patient_id='" + patientID + "' ,consult_date='" + consultationDate.getValue().toString() + "' , "
+        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET patient_id='" + Integer.parseInt(patientID) + "' ,consult_date='" + consultationDate.getValue().toString() + "' , "
                 + " consult_fee='" + Integer.parseInt(consultFeeTF.getText())+ "', consult_status='" + consultStatusTF.getText() +"',disease='" + diseaseTF.getText() + "',duration='" + durationTF.getText() + "',"
                 + "medicine_prescribed='" + medicinePescribedTF.getText() + "' "
                 + " WHERE patient_id='" + Integer.parseInt(patientID)+ "' and" + " consult_date='" + consultationDate1 + "' and"
@@ -476,9 +511,12 @@ public class ConsultationController implements Initializable {
                 + " duration='" + duration + "' and" + " medicine_prescribed='" + medicinePescribed +  "'";
         try {
             Class.forName("com.mysql.jdbc.Driver");
+            System.out.print("Sname"+sqlUpdat);
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlUpdat);
             stat.executeUpdate();
+            CunsultationModel PatientModel = new CunsultationModel(patientID1,consultationDate.getValue().toString(),consultFeeTF.getText(),consultStatusTF.getText(),diseaseTF.getText(),durationTF.getText(),medicinePescribedTF.getText());
+        pModel.setValue(PatientModel);
 
         } catch (SQLException e) {
             showError(e.getMessage());
@@ -510,7 +548,7 @@ public class ConsultationController implements Initializable {
 
     public void clear() {
 
-        patientIdCB.setValue("choose an patient name");
+        patientIdCB.setValue("patient");
         consultStatusTF.setText(null);
         consultFeeTF.setText(null);
         durationTF.setText(null);

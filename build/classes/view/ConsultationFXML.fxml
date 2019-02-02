@@ -56,7 +56,7 @@
               </rowConstraints>
                <children>
                    
-                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="55.0" text="Select Patient" GridPane.rowIndex="2" />
+                  <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="55.0" text="Select Patient" GridPane.rowIndex="2" />-->
                   <Label alignment="CENTER" prefHeight="55.0" prefWidth="70.0" text="Date" GridPane.rowIndex="3" />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="100.0" text="Fee" GridPane.rowIndex="4" />
                   <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Staus" GridPane.rowIndex="5" />
@@ -73,7 +73,7 @@
                   <JFXTextField fx:id="patientAgeTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
                   <JFXTextField fx:id="consultFeeTF" focusColor="#00a761" maxWidth="132.0" minWidth="132.0" prefHeight="39.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <JFXTextField fx:id="consultStatusTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-                  <JFXTextField fx:id="diseaseTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="42.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="6" />
+                  <JFXTextField fx:id="diseaseTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="42.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
                   <JFXTextField fx:id="durationTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                  <JFXTextField fx:id="medicinePescribedTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                   

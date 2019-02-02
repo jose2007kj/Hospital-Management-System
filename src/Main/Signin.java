@@ -1,6 +1,7 @@
 package Main;
 
 import controller.ClinicsMainWindowController;
+import controller.ConsultationController;
 import controller.PatientConroller;
 import controller.SigninFXMLController;
 import controller.StatisticsFxmlDocumentController;
@@ -159,6 +160,8 @@ public class Signin extends Application {
                 case "Consultation":
                     loader = new FXMLLoader(Signin.class.getResource("/view/ConsultationFXML.fxml"));
                     pane = loader.load();
+                    ConsultationController consultation=loader.getController();
+                    consultation.main(this, stage4);
                     
                     break;
                 case "Bill":
