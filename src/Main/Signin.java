@@ -1,5 +1,6 @@
 package Main;
 
+import controller.BillController;
 import controller.ClinicsMainWindowController;
 import controller.ConsultationController;
 import controller.PatientConroller;
@@ -165,8 +166,10 @@ public class Signin extends Application {
                     
                     break;
                 case "Bill":
-                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    loader = new FXMLLoader(Signin.class.getResource("/view/BillFxml.fxml"));
                     pane = loader.load();
+                    BillController bill=loader.getController();
+                    bill.main(this, stage4);
                     
                     break;
                 case "Patient":

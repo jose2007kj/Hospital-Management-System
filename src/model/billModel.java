@@ -13,13 +13,21 @@ import javafx.beans.property.StringProperty;
  * @author mary
  */
 public class billModel extends RecursiveTreeObject<billModel> {
-private StringProperty billNo;
-private StringProperty patientId;
-private StringProperty billDate;
-private StringProperty itemName;
-private StringProperty qty;
-private StringProperty cost;
+public StringProperty billNo;
+public StringProperty patientId;
+public StringProperty billDate;
+public StringProperty itemName;
+public StringProperty qty;
+public StringProperty cost;
 
+public billModel(String patientId ,String itemName,String date,String qty,String cost){
+    this.itemName=new SimpleStringProperty(itemName);
+        this.patientId=new SimpleStringProperty(patientId);
+        this.billDate=new SimpleStringProperty(date);
+        this.qty=new SimpleStringProperty(qty);
+        this.cost=new SimpleStringProperty(cost);
+//        this.total=new SimpleStringProperty(total);
+}
 public String getBillNo() {
 return billNo.get();
 }

@@ -45,20 +45,20 @@ import model.billModel;
  *
  * @author mary
  */
-public class BillController {//implements Initializable {
+public class BillController implements Initializable {
 
-   /** @FXML
+    @FXML
     private JFXTreeTableView<billModel> tableView;
     ObservableList<billModel> billList;
-    ObservableList<String> sName=FXCollections.observableArrayList();
+    ObservableList<String> patientIdList=FXCollections.observableArrayList();
     ObservableList<String> iName=FXCollections.observableArrayList();
-    JFXDatePicker purchaseDate,expiryDate;
+    JFXDatePicker billDate;//,expiryDate;
     @FXML
     private JFXTextField searchTF;
     @FXML // for combo box
-    private ComboBox<String> supplierNameCB,itemNameCB;
+    private ComboBox<String> patientId,itemNameCB;
     @FXML
-    private JFXTextField quantityTF,totalTF;//,patientGenderTF,patientAddressTF,patientContactTF;
+    private JFXTextField quantityTF,costTF;//,patientGenderTF,patientAddressTF,patientContactTF;
 //    @FXML
 //    private JFXTextArea treatmentTF, diagnosisTF;
 
@@ -66,17 +66,17 @@ public class BillController {//implements Initializable {
     private GridPane InsertGridPane;
 
     @FXML
-    private Label supplierNameLabel,itemNameLabel,purchaseDateLabel,expiryDateLabel,quantityLabel,totalLabel;
+    private Label patientIdLabel,itemNameLabel,billDateLabel,quantityLabel,costLabel;
 
-    String selectedSup,selectedItem,selectedSup1,selectedItem1,SName, Edate, Pdate, Iquantity, Itotal;//, Pcontact;
+    String selectedPaientId2,selectedPaientId,patientID1,selectedItem,selectedPaientId1,selectedItem1,SName, billsDate, Iquantity, Icost;//, Pcontact;
 
     private static Connection conn = null;
-    private static PreparedStatement stat = null;
+    private static PreparedStatement stat = null,pStat=null;
     private static String url = "jdbc:mysql://localhost:3306";
     private static String Password = "";
     private static String username = "mary";
     private static String sqlInsert;
-    ResultSet result;
+    ResultSet result,pResult;
 
     public static void showError(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -106,27 +106,37 @@ public class BillController {//implements Initializable {
         
         quantityTF.getValidators().add(validator("Input is required"));
 //        patientAddressTF.getValidators().add(validator("Input is required"));
-        totalTF.getValidators().add(validator("Input is required"));
+        costTF.getValidators().add(validator("Input is required"));
 //        patientContactTF.getValidators().add(validator("Input is required"));
 //	patientGenderTF.getValidators().add(validator("Input is required"));
 //
-        purchaseDate = new JFXDatePicker();
-        purchaseDate.setPrefWidth(240);
-        purchaseDate.setPrefHeight(41);
-        expiryDate = new JFXDatePicker();
-        expiryDate.setPrefWidth(240);
-        expiryDate.setPrefHeight(41);
-        InsertGridPane.add(purchaseDate, 1, 2);
-        InsertGridPane.add(expiryDate, 1, 3);
-        fetchSname();
+        billDate = new JFXDatePicker();
+        billDate.setPrefWidth(240);
+        billDate.setPrefHeight(41);
+        InsertGridPane.add(billDate, 1, 5);
         fetchIname();
+        fechPatientId();
 //        itemNameCB.setValue("Select Item Name");
         
         //code for onclick combobox
-        supplierNameCB.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+        patientId.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue<? extends String> selected, String oldName, String newName) {
-                    selectedSup=newName;
-
+//                    selectedPaientId=newName;
+                    patientID1=newName;
+                if(newName.contains(".")){
+                    try
+                        {
+                            
+                            String[] temp=newName.split("\\.");
+                            System.out.print("temp"+temp.length);
+                            selectedPaientId=temp[0];
+                        }catch(Exception e){
+                            System.out.print("temp"+e.toString());
+                        }
+                
+                }else{
+                selectedPaientId="";
+                }
             }
         });
         itemNameCB.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -136,20 +146,31 @@ public class BillController {//implements Initializable {
             }
         });
         //code for onclick combobox
-        JFXTreeTableColumn<billModel, String> SNcoloumn = new JFXTreeTableColumn<>("Supplier Name");
+        JFXTreeTableColumn<billModel, String> PIdcoloumn = new JFXTreeTableColumn<>("Paient Id");
 
-        SNcoloumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
+        PIdcoloumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
 
             @Override
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<billModel, String> param) {
-                return param.getValue().getValue().supName;
+                return param.getValue().getValue().patientId;
 
             }
         });
 
-        JFXTreeTableColumn<billModel, String> INcoloumn = new JFXTreeTableColumn<>(" Item Name");
+        JFXTreeTableColumn<billModel, String> Bdatecoloumn = new JFXTreeTableColumn<>(" Bill Date");
 
-        INcoloumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
+        Bdatecoloumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<billModel, String> param) {
+                return param.getValue().getValue().billDate;
+
+            }
+        });
+
+        JFXTreeTableColumn<billModel, String> ItemNamecoloumn = new JFXTreeTableColumn<>("Item Name");
+
+        ItemNamecoloumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
 
             @Override
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<billModel, String> param) {
@@ -158,24 +179,13 @@ public class BillController {//implements Initializable {
             }
         });
 
-        JFXTreeTableColumn<billModel, String> ExpiryColoumn = new JFXTreeTableColumn<>("Expirey Date");
+        JFXTreeTableColumn<billModel, String> costColoumn = new JFXTreeTableColumn<>("Cost");
 
-        ExpiryColoumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
-
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<billModel, String> param) {
-                return param.getValue().getValue().expiryDate;
-
-            }
-        });
-
-        JFXTreeTableColumn<billModel, String> PurchaseDateColoumn = new JFXTreeTableColumn<>("Purchase Date");
-
-        PurchaseDateColoumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
+        costColoumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
 
             @Override
             public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<billModel, String> param) {
-                return param.getValue().getValue().purchaseDate;
+                return param.getValue().getValue().cost;
 
             }
         });
@@ -190,16 +200,16 @@ public class BillController {//implements Initializable {
             }
         });
 
-        JFXTreeTableColumn<billModel, String> TotalColoumn = new JFXTreeTableColumn<>("Total");
-
-        TotalColoumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
-
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<billModel, String> param) {
-                return param.getValue().getValue().total;
-
-            }
-        });
+//        JFXTreeTableColumn<billModel, String> TotalColoumn = new JFXTreeTableColumn<>("Total");
+//
+//        TotalColoumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<billModel, String>, ObservableValue<String>>() {
+//
+//            @Override
+//            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<billModel, String> param) {
+//                return param.getValue().getValue().total;
+//
+//            }
+//        });
 //
 //        JFXTreeTableColumn<patientModel, String> Teatmentcolumn = new JFXTreeTableColumn<>("Treatment");
 //        Teatmentcolumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<patientModel, String>, ObservableValue<String>>() {
@@ -215,7 +225,7 @@ public class BillController {//implements Initializable {
         addrowsToTable();
 
         TreeItem<billModel> root = new RecursiveTreeItem<billModel>(billList, RecursiveTreeObject::getChildren);
-        tableView.getColumns().addAll(SNcoloumn, INcoloumn, ExpiryColoumn, PurchaseDateColoumn,QuantityColoumn,TotalColoumn);
+        tableView.getColumns().addAll(PIdcoloumn, Bdatecoloumn, ItemNamecoloumn, costColoumn,QuantityColoumn);
         tableView.setRoot(root);
         tableView.setShowRoot(false);
 
@@ -229,12 +239,11 @@ public class BillController {//implements Initializable {
                     @Override
                     public boolean test(TreeItem<billModel> t) {
 
-                        boolean flag = t.getValue().supName.getValue().contains(newValue)
+                        boolean flag = t.getValue().patientId.getValue().contains(newValue)
                                 || t.getValue().itemName.getValue().contains(newValue)
-                                || t.getValue().purchaseDate.getValue().contains(newValue)
-                                || t.getValue().expiryDate.getValue().contains(newValue)
-                                || t.getValue().qty.getValue().contains(newValue)
-                                || t.getValue().total.getValue().contains(newValue);
+                                || t.getValue().billDate.getValue().contains(newValue)
+                                || t.getValue().cost.getValue().contains(newValue)
+                                || t.getValue().qty.getValue().contains(newValue);
                         return flag;
 
                     }
@@ -248,9 +257,10 @@ public class BillController {//implements Initializable {
                 showDetails(newValue)
         );
     }
-    void fetchSname() {
+   
+    void fechPatientId() {
 
-        String sqlSelect = "select * from test.Supplier ";
+        String sqlSelect = "select * from test.Patient ";
 
         try {
 
@@ -262,16 +272,11 @@ public class BillController {//implements Initializable {
             
             while (result.next()) {
                 System.out.print("sql statement"+result.getString(2));
-                sName.add(result.getString(2));
                 
-//                System.out.print("result.getString(2)"+result.getString(2));
-//                System.out.print("result.getString(3)"+result.getString(3));
-//                System.out.print("result.getString(4)"+result.getString(4));
-//                System.out.print("result.getString(5)"+result.getString(5));
-//                supplierList.add(new supplierModel(result.getString(2), result.getString(3),result.getString(5), result.getString(4) + ""));
-
+                patientIdList.add(result.getString(1).toString()+"."+result.getString(2).toString());
             }
-           supplierNameCB.setItems(sName);
+            patientId.setItems(patientIdList);
+            
         } catch (SQLException r) {
             showError(r.getMessage());
         } catch (ClassNotFoundException n) {
@@ -326,45 +331,56 @@ public class BillController {//implements Initializable {
 
     }
     public void showDetails(TreeItem<billModel> pModel) {
-        purchaseDate.setValue(LocalDate.parse(pModel.getValue().getPurchaseDate()));
-        expiryDate.setValue(LocalDate.parse(pModel.getValue().getExpiryDate()));
-        supplierNameCB.setValue(pModel.getValue().getSupName());
+        if(pModel.getValue().getPatientId().contains(".")){
+            try
+            {
+                String ntemp=pModel.getValue().getPatientId();
+                String[] temp=ntemp.split("\\.");
+                System.out.print("temp"+temp.length);
+                selectedPaientId=temp[0];
+                selectedPaientId2=temp[0];
+            }catch(Exception e){
+                System.out.print("temp"+e.toString());
+            }
+        }
+        billDate.setValue(LocalDate.parse(pModel.getValue().getBillDate()));
+//      expiryDate.setValue(LocalDate.parse(pModel.getValue().getExpiryDate()));
+        patientId.setValue(pModel.getValue().getPatientId());
         itemNameCB.setValue(pModel.getValue().getItemName());
-        supplierNameLabel.setText(pModel.getValue().getSupName());
+        patientIdLabel.setText(pModel.getValue().getPatientId());
         itemNameLabel.setText(pModel.getValue().getItemName());
-        purchaseDateLabel.setText(pModel.getValue().getPurchaseDate());
+        billDateLabel.setText(pModel.getValue().getBillDate());
         quantityLabel.setText(pModel.getValue().getQty());
-        expiryDateLabel.setText(pModel.getValue().getExpiryDate());
-        totalLabel.setText(pModel.getValue().getTotal());
+//        expiryDateLabel.setText(pModel.getValue().getExpiryDate());
+        costLabel.setText(pModel.getValue().getCost());
         quantityTF.setText(pModel.getValue().getQty());
-        totalTF.setText(pModel.getValue().getTotal());
+        costTF.setText(pModel.getValue().getCost());
 
 
-        Edate= pModel.getValue().getExpiryDate();
+        billsDate= pModel.getValue().getBillDate();
         Iquantity = pModel.getValue().getQty();
-        Pdate = pModel.getValue().getPurchaseDate();
-        Itotal= pModel.getValue().getTotal();
-        selectedSup1=pModel.getValue().getSupName();
+//        Pdate = pModel.getValue().getPurchaseDate();
+        Icost= pModel.getValue().getCost();
+//        selectedPaientId1=pModel.getValue().getSupName();
         selectedItem1=pModel.getValue().getItemName();
         
        
     }
 
-    private static void insert(String supName, String itemName, String purchaseDate, String expiryDate,int quantity,int total) {
+    private static void insert(int patientid, String itemName, String billDate,int quantity,int total) {
         try {
 
-            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(sup_name,item_name,purchase_date,expiry_date,qty,total) VALUES (?,?,?,?,?,?)";
+            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(patient_id,bill_date,item_name,qty,cost) VALUES (?,?,?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlInsert);
 
-            stat.setString(1, supName);
-            stat.setString(2, itemName);
-            stat.setString(3, purchaseDate);
-            stat.setString(4, expiryDate);
-            stat.setInt(5, quantity);
-            stat.setInt(6, total);
+            stat.setInt(1, patientid);
+            stat.setString(3, itemName);
+            stat.setString(2, billDate);
+            stat.setInt(4, quantity);
+            stat.setInt(5, total);
             
 
             stat.executeUpdate();
@@ -398,14 +414,14 @@ public class BillController {//implements Initializable {
     @FXML
     void insertPatientData(ActionEvent event) {
 //        System.out.print("quantityTF.getText()"+quantityTF.getText());
-//                System.out.print("totalTF.getText()"+totalTF.getText());
+//                System.out.print("costTF.getText()"+costTF.getText());
 //                System.out.print("patientAddressTF.getText()"+patientAddressTF.getText());
 //                System.out.print("patientGenderTF.getText()"+patientGenderTF.getText());
 
         try {
             
-            insert(selectedSup, selectedItem,purchaseDate.getValue().toString(),expiryDate.getValue().toString(),Integer.parseInt(quantityTF.getText()),Integer.parseInt(totalTF.getText()));
-            billList.add(new billModel(selectedSup, selectedItem,purchaseDate.getValue().toString(),expiryDate.getValue().toString(),quantityTF.getText(),totalTF.getText()));
+            insert(Integer.parseInt(selectedPaientId), selectedItem,billDate.getValue().toString(),Integer.parseInt(quantityTF.getText()),Integer.parseInt(costTF.getText()));
+            billList.add(new billModel(patientID1, selectedItem,billDate.getValue().toString(),quantityTF.getText(),costTF.getText()));
        
         }
         catch (NullPointerException cc) {
@@ -426,7 +442,7 @@ public class BillController {//implements Initializable {
     void addrowsToTable() {
 
         String sqlSelect = "select * from test." + ClinicsMainWindowController.tableName + " ";
-
+        String temp="";
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -436,11 +452,17 @@ public class BillController {//implements Initializable {
             result = stat.executeQuery();
 
             while (result.next()) {
+                String sqlfetchPatients = "select * from test.Patient where patient_id='"+result.getInt(2)+"'";
+                pStat = conn.prepareStatement(sqlfetchPatients);
+                pResult=pStat.executeQuery();
+                while(pResult.next()){
+                   temp=pResult.getString(1).toString()+"."+pResult.getString(2).toString(); 
+                }
                 System.out.print("result.getString(2)"+result.getString(2));
                 System.out.print("result.getString(3)"+result.getString(3));
                 System.out.print("result.getString(4)"+result.getString(4));
                 System.out.print("result.getString(5)"+result.getString(5));
-                billList.add(new billModel(result.getString(2),result.getString(4),result.getString(3),result.getString(5), result.getInt(6)+"",result.getInt(7)+""));
+                billList.add(new billModel(temp,result.getString(4),result.getString(3),result.getInt(5)+"", result.getInt(6)+""));
 
             }
         } catch (SQLException r) {
@@ -465,10 +487,10 @@ public class BillController {//implements Initializable {
         try {
             int index = tableView.getSelectionModel().getSelectedIndex();
 //            billList.remove(index);
-            System.out.print("delete"+billList.get(index).getSupName());
-            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where sup_name='" + billList.get(index).getSupName()+ "' and" + " item_name='" + billList.get(index).getItemName() + "' and"
-                + " purchase_date='" + billList.get(index).getPurchaseDate() + "' and" + " expiry_date='" + billList.get(index).getExpiryDate() + "' and" + " qty='" + billList.get(index).getQty() + "' and" 
-                + " total='" + billList.get(index).getTotal() +  "'";
+//            System.out.print("delete"+billList.get(index).getSupName());
+            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where patient_id='" + Integer.parseInt(selectedPaientId)+ "' and" + " item_name='" + billList.get(index).getItemName() + "' and"
+                + " bill_date='" + billList.get(index).getBillDate() + "' and" + " qty='" + billList.get(index).getQty() + "' and" 
+                + " cost='" + billList.get(index).getCost() +  "'";
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlSelect);
@@ -497,18 +519,18 @@ public class BillController {//implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<billModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        billModel PatientModel = new billModel(selectedSup, selectedItem,purchaseDate.getValue().toString(),expiryDate.getValue().toString(),quantityTF.getText(),totalTF.getText());
+        billModel PatientModel = new billModel(patientID1, selectedItem,billDate.getValue().toString(),quantityTF.getText(),costTF.getText());
         pModel.setValue(PatientModel);
-//        System.out.print("Sname"+Sname);
+        System.out.print("selectedPaientId  : "+selectedPaientId);
 //        System.out.print("Saddress"+Saddress);
 //        System.out.print("Iquantity"+Iquantity);
 //        System.out.print("Pcontact"+Pcontact);
         
-        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET sup_name='" + selectedSup + "' ,item_name='" + selectedItem + "' , "
-                + " purchase_date='" + purchaseDate.getValue().toString()+ "', expiry_date='" + expiryDate.getValue().toString() +"',qty='" + quantityTF.getText() + "',total='" + totalTF.getText() + "' "
-                + " WHERE sup_name='" + selectedSup1+ "' and" + " item_name='" + selectedItem1 + "' and"
-                + " purchase_date='" + Pdate + "' and" + " expiry_date='" + Edate + "' and" + " qty='" + Iquantity + "' and" 
-                + " total='" + Itotal +  "'";
+        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET patient_id='" + Integer.parseInt(selectedPaientId) + "' ,item_name='" + selectedItem + "' , "
+                + " bill_date='" + billDate.getValue().toString()+ "',qty='" + quantityTF.getText() + "',cost='" + costTF.getText() + "' "
+                + " WHERE patient_id='" + selectedPaientId2+ "' and" + " item_name='" + selectedItem1 + "' and"
+                + " bill_date='" + billsDate + "' and" + " qty='" + Iquantity + "' and" 
+                + " cost='" + Icost +  "'";
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -547,11 +569,11 @@ public class BillController {//implements Initializable {
 
         quantityTF.setText(null);
         itemNameCB.setValue("choose an item name");
-        supplierNameCB.setValue("choose an supplier name");
-        totalTF.setText(null);
+        patientId.setValue("choose an supplier name");
+        costTF.setText(null);
         quantityTF.setText(null);
-        purchaseDate.setValue(null);
-        expiryDate.setValue(null);
+        billDate.setValue(null);
+//        expiryDate.setValue(null);
 //        patientContactTF.setText(null);
 //        patientGenderTF.setText(null);
         
@@ -599,5 +621,4 @@ public class BillController {//implements Initializable {
         signin.clinicsWindow();
         signin.SubClinicWindowClose();
     }
-**/
 }
