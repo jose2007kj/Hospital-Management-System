@@ -18,11 +18,11 @@
             <DropShadow color="#4d4b4b" />
          </effect>
          <children>
-            <ImageView fx:id="setting" fitHeight="24.0" fitWidth="24.0" layoutX="275.0" layoutY="65.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
+<!--            <ImageView fx:id="setting" fitHeight="24.0" fitWidth="24.0" layoutX="275.0" layoutY="65.0" opacity="0.18" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../src/setting.png" />
                </image>
-            </ImageView>
+            </ImageView>-->
             <Label alignment="CENTER" contentDisplay="CENTER" layoutY="-2.0" minHeight="64.0" minWidth="295.0" prefHeight="64.0" prefWidth="311.0" style="-fx-background-color: #33cc94; -fx-background-radius: 50px 50px 0px 0px;" text="Hospital System" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />

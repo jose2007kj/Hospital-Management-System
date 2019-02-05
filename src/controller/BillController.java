@@ -6,6 +6,13 @@
 package controller;
 
 import Main.Signin;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
@@ -13,6 +20,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -53,6 +61,7 @@ public class BillController implements Initializable {
     ObservableList<String> patientIdList=FXCollections.observableArrayList();
     ObservableList<String> iName=FXCollections.observableArrayList();
     JFXDatePicker billDate;//,expiryDate;
+    //    PdfWriter.getInstance(my_pdf_report, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
     @FXML
     private JFXTextField searchTF;
     @FXML // for combo box
@@ -61,7 +70,8 @@ public class BillController implements Initializable {
     private JFXTextField quantityTF,costTF;//,patientGenderTF,patientAddressTF,patientContactTF;
 //    @FXML
 //    private JFXTextArea treatmentTF, diagnosisTF;
-
+    @FXML
+    private JFXButton reportButton;
     @FXML
     private GridPane InsertGridPane;
 
@@ -116,6 +126,7 @@ public class BillController implements Initializable {
         InsertGridPane.add(billDate, 1, 5);
         fetchIname();
         fechPatientId();
+        reportButton.setVisible(false);
 //        itemNameCB.setValue("Select Item Name");
         
         //code for onclick combobox
@@ -331,6 +342,7 @@ public class BillController implements Initializable {
 
     }
     public void showDetails(TreeItem<billModel> pModel) {
+        
         if(pModel.getValue().getPatientId().contains(".")){
             try
             {
@@ -343,6 +355,7 @@ public class BillController implements Initializable {
                 System.out.print("temp"+e.toString());
             }
         }
+        reportButton.setVisible(true);
         billDate.setValue(LocalDate.parse(pModel.getValue().getBillDate()));
 //      expiryDate.setValue(LocalDate.parse(pModel.getValue().getExpiryDate()));
         patientId.setValue(pModel.getValue().getPatientId());
@@ -410,7 +423,50 @@ public class BillController implements Initializable {
             }
         }
     }
+    @FXML
+    void generateReport(){
+     try{
+            int index = tableView.getSelectionModel().getSelectedIndex();
+            Document my_pdf_report = new Document();
+            PdfWriter.getInstance (my_pdf_report, new FileOutputStream("patient_bill.pdf"));
+            my_pdf_report.open();     
+            PdfPTable table = new PdfPTable(5);
+//            PdfPCell table_cell;
 
+//            PdfPCell c1 = new PdfPCell(new Phrase("Bill No"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
+
+            PdfPCell c1 = new PdfPCell(new Phrase("Bill date"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+
+            c1 = new PdfPCell(new Phrase("Patient Id"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+             c1 = new PdfPCell(new Phrase("Item Name"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+            c1 = new PdfPCell(new Phrase("Quantity"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+            c1 = new PdfPCell(new Phrase("Cost"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+            table.setHeaderRows(1);
+
+            table.addCell(billList.get(index).getBillDate());
+            table.addCell(selectedPaientId);
+            table.addCell(billList.get(index).getItemName());
+             table.addCell(billList.get(index).getQty());
+            table.addCell(billList.get(index).getCost());
+            my_pdf_report.add(table);                       
+            my_pdf_report.close();
+            
+        }catch(Exception e){
+           showError(e.getMessage()); 
+        }   
+    }
     @FXML
     void insertPatientData(ActionEvent event) {
 //        System.out.print("quantityTF.getText()"+quantityTF.getText());

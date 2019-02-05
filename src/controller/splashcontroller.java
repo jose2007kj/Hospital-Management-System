@@ -16,7 +16,7 @@ import javafx.util.Duration;
 
 /**
  *
- * @author MOHAMMED
+ * @author mary
  */
 public class splashcontroller implements Initializable {
     @FXML

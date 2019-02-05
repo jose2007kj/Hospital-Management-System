@@ -25,7 +25,7 @@ import model.userModel;
 
 /**
  *
- * @author MOHAMMED
+ * @author mary
  */
 
 public class UsersController implements Initializable{
@@ -110,3 +110,5 @@ public class UsersController implements Initializable{
 
     }
 }
+
+//please note this is unused file

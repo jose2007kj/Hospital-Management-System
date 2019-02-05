@@ -20,14 +20,14 @@
             <Font name="System Bold" size="32.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" layoutX="226.0" layoutY="84.0" prefHeight="82.0" prefWidth="302.0" text="Is developed for managing and manipulating  the hospital's patients data  ." wrapText="true" />
+      <Label alignment="TOP_LEFT" layoutX="226.0" layoutY="84.0" prefHeight="82.0" prefWidth="302.0" text="Is developed for managing and manipulating  the Dr NK Jayaram Memorial Homeo Clinics patient data  ." wrapText="true" />
       <Label layoutX="218.0" layoutY="158.0" text="Developed by  " />
-      <Label layoutX="298.0" layoutY="158.0" text="MOHAMED ADEL" underline="true">
+      <Label layoutX="300.0" layoutY="158.0" text=" MARY JOSEPH" underline="true">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="215.0" layoutY="220.0" text="Contact us with " />
+<!--      <Label layoutX="215.0" layoutY="220.0" text="Contact us with " />
       <HBox layoutX="303.0" layoutY="210.0" prefHeight="17.0" prefWidth="134.0" spacing="10.0">
          <children>
             <ImageView fx:id="fb" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
@@ -46,6 +46,6 @@
                </image>
             </ImageView>
          </children>
-      </HBox>
+      </HBox>-->
    </children>
 </AnchorPane>

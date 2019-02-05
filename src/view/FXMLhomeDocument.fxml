@@ -16,7 +16,8 @@
       <Pane id="homePane" fx:id="backgroundPane" layoutY="7.0" prefHeight="368.0" prefWidth="1007.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <JFXHamburger fx:id="humburger" layoutX="1163.0" layoutY="33.0" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: #fff;" />
-         </children></Pane>
+        </children>
+      </Pane>
       <GridPane layoutX="212.0" layoutY="368.0" opacity="0.8" prefHeight="432.0" prefWidth="793.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="212.0" AnchorPane.rightAnchor="212.0" AnchorPane.topAnchor="215.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

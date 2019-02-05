@@ -31,12 +31,12 @@ import javax.swing.Icon;
 import org.controlsfx.control.Notifications;
 /**
  *
- * @author MOHAMMED
+ * @author mary
  */
 
 public class SigninFXMLController implements Initializable {
-    @FXML
-    private ImageView setting;
+//    @FXML
+//    private ImageView setting;
     @FXML
     private AnchorPane rootPane;
     
@@ -186,17 +186,17 @@ public class SigninFXMLController implements Initializable {
         usernameTF.getValidators().add(validator("Input is requird"));
         passwordTF.getValidators().add(validator("Input is requird"));
 
-        setting.setOnMouseEntered(e ->{
-        RotateTransition rotateTransition=new RotateTransition(Duration.seconds(2), setting);
-        rotateTransition.setFromAngle(0);
-        rotateTransition.setToAngle(360);
-        rotateTransition.play();
-        });
-        
-        setting.setOnMouseClicked(e ->{
-        
-        Signin.usersWindow();
-        });
+//        setting.setOnMouseEntered(e ->{
+//        RotateTransition rotateTransition=new RotateTransition(Duration.seconds(2), setting);
+//        rotateTransition.setFromAngle(0);
+//        rotateTransition.setToAngle(360);
+//        rotateTransition.play();
+//        });
+//        
+//        setting.setOnMouseClicked(e ->{
+//        
+//        Signin.usersWindow();
+//        });
         
        RotateTransition rotateTransition=new RotateTransition(Duration.seconds(122), logoImage);
        rotateTransition.setFromAngle(0);

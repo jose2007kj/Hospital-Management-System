@@ -21,7 +21,7 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author MOHAMMED
+ * @author mary
  */
 public class ClinicsMainWindowController implements Initializable {
 
@@ -203,39 +203,5 @@ public class ClinicsMainWindowController implements Initializable {
         }
     }
 
-//    @FXML
-//    public void OpenClinicWindow6(ActionEvent event) {
-//        try {
-//            tableName = "dentalclinic";
-//            signin.clinicName = "Dental";
-//            signin.SubClinicWindow();
-//            signin.clinicsWindowClose();
-//
-//        } catch (Exception ex) {
-//        }
-//    }
-//
-//    @FXML
-//    public void OpenClinicWindow7(ActionEvent event) {
-//        try {
-//            tableName = "dermatology";
-//            signin.clinicName = "Dermatology";
-//            signin.SubClinicWindow();
-//            signin.clinicsWindowClose();
-//
-//        } catch (Exception ex) {
-//        }
-//    }
-//
-//    @FXML
-//    public void OpenClinicWindow8(ActionEvent event) {
-//        try {
-//            tableName = "ophthalmology";
-//            signin.clinicName = "Ophthalmology";
-//            signin.SubClinicWindow();
-//            signin.clinicsWindowClose();
-//
-//        } catch (Exception ex) {
-//        }
-//    }
+
 }

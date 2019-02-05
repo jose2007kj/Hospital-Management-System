@@ -5,7 +5,6 @@ import controller.ClinicsMainWindowController;
 import controller.ConsultationController;
 import controller.PatientConroller;
 import controller.SigninFXMLController;
-import controller.StatisticsFxmlDocumentController;
 import controller.SubClinicFxmlDocumentController;
 import controller.PurchaseDeailsController;
 import controller. StockController;
@@ -24,7 +23,7 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @author MOHAMMED
+ * @author mary
  */
 public class Signin extends Application {
 
@@ -138,7 +137,7 @@ public class Signin extends Application {
 //            SubClinicFxmlDocumentController controller = loader.getController();
             switch(pageName){
                 case "Supplier":
-                    loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));
+                    loader = new FXMLLoader(Signin.class.getResource("/view/supplierFxmlDocument.fxml"));
                     pane = loader.load();
                     SupplierWindowController controller = loader.getController();
                     controller.main(this, stage4);
@@ -208,24 +207,6 @@ public class Signin extends Application {
         stage4.close();
     }
 
-    public static void StatisticsWindow() {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(Signin.class.getResource("/view/statisticsFxmlDocument.fxml"));
-            AnchorPane pane = loader.load();
-            StatisticsFxmlDocumentController controller = loader.getController();
-            stage5 = new Stage();
-            // controller.Main(this,stage5);      
-            Scene scene = new Scene(pane);
-            scene.getStylesheets().add(Signin.class.getResource("/style/StyleSheet.css").toExternalForm());
-            stage5.setTitle("Statistics");
-            stage5.setResizable(true);
-            stage5.setScene(scene);
-            stage5.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void AboutWindow() {
 
@@ -245,25 +226,25 @@ public class Signin extends Application {
         }
     }
     
-     public static void usersWindow() {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(Signin.class.getResource("/view/FXMLUsersDocument.fxml"));
-            AnchorPane pane = loader.load();
-            UsersController controller = loader.getController();
-            stage7 = new Stage();
-            Scene scene = new Scene(pane);
-            scene.getStylesheets().add(Signin.class.getResource("/style/StyleSheet.css").toExternalForm());
-            stage7.setTitle("Users");
-            stage7.setResizable(false);
-            stage7.initOwner(stageprim);
-            stage7.initModality(Modality.WINDOW_MODAL);
-            stage7.setScene(scene);
-            stage7.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//     public static void usersWindow() {
+//
+//        try {
+//            FXMLLoader loader = new FXMLLoader(Signin.class.getResource("/view/FXMLUsersDocument.fxml"));
+//            AnchorPane pane = loader.load();
+//            UsersController controller = loader.getController();
+//            stage7 = new Stage();
+//            Scene scene = new Scene(pane);
+//            scene.getStylesheets().add(Signin.class.getResource("/style/StyleSheet.css").toExternalForm());
+//            stage7.setTitle("Users");
+//            stage7.setResizable(false);
+//            stage7.initOwner(stageprim);
+//            stage7.initModality(Modality.WINDOW_MODAL);
+//            stage7.setScene(scene);
+//            stage7.show();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public static void main(String[] args) {
         launch(args);

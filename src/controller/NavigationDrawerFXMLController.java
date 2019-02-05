@@ -16,7 +16,7 @@ import javafx.scene.control.Label;
 /**
  * FXML Controller class
  *
- * @author MOHAMMED
+ * @author mary
  */
 public class NavigationDrawerFXMLController implements Initializable {
 
@@ -32,10 +32,10 @@ public class NavigationDrawerFXMLController implements Initializable {
         NameLB.setText(SigninFXMLController.nameforHome);
     }
 
-    @FXML
-    void showStatistics(ActionEvent event) {
-        Signin.StatisticsWindow();
-    }
+//    @FXML
+//    void showStatistics(ActionEvent event) {
+//        Signin.StatisticsWindow();
+//    }
 
     @FXML
     void about(ActionEvent event) {

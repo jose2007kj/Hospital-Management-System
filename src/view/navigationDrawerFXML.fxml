@@ -51,13 +51,13 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <JFXButton id="navLabels" onAction="#showStatistics" prefHeight="131.0" prefWidth="212.0" style="-fx-background-color: #fff;" text="Statistics" textFill="#6b6b6b" GridPane.columnIndex="1">
+<!--                  <JFXButton id="navLabels" onAction="#showStatistics" prefHeight="131.0" prefWidth="212.0" style="-fx-background-color: #fff;" text="Statistics" textFill="#6b6b6b" GridPane.columnIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
                      <padding>
                         <Insets left="-120.0" />
-                     </padding></JFXButton>
+                     </padding></JFXButton>-->
                   <JFXButton id="navLabels" onAction="#about" prefHeight="77.0" prefWidth="220.0" style="-fx-background-color: #fff;" text="About" textFill="#6b6b6b" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
@@ -75,13 +75,13 @@
                      <padding>
                         <Insets left="-120.0" />
                      </padding></JFXButton>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
+<!--                  <ImageView fitHeight="30.0" fitWidth="30.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../src/statistics.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="20.0" />
-                     </GridPane.margin></ImageView>
+                     </GridPane.margin></ImageView>-->
                   <ImageView fitHeight="30.0" fitWidth="30.0" opacity="0.17" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                      <image>
                         <Image url="@../src/info.png" />
