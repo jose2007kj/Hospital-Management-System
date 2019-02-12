@@ -7,12 +7,18 @@ import controller.PatientConroller;
 import controller.SigninFXMLController;
 import controller.SubClinicFxmlDocumentController;
 import controller.PurchaseDeailsController;
+import static controller.PurchaseDeailsController.showError;
 import controller. StockController;
 import controller.SupplierWindowController;
 import controller.UsersController;
 import controller.aboutController;
 import controller.signupFXMLConroller;
 import controller.splashcontroller;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -30,7 +36,13 @@ public class Signin extends Application {
     static Stage stageprim, stage1, stage2, stage4, stage3, stage5, stage6,stage7;
     public String clinicName = "";
     public String pageName="";
-
+    private static Connection conn = null;
+    private static PreparedStatement stat = null,pStat=null;
+    private static String url = "jdbc:mysql://localhost:3306";
+    private static String Password = "";
+    private static String username = "mary";
+    private static String sqlInsert;
+    ResultSet result;
     @Override
     public void start(Stage stage) throws Exception {
         this.stage1 = stage;
@@ -50,6 +62,7 @@ public class Signin extends Application {
             scene.getStylesheets().add(Signin.class.getResource("/style/StyleSheet.css").toExternalForm());
             stage1.setScene(scene);
             stage1.show();
+            createTables();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +94,70 @@ public class Signin extends Application {
     public void signInClose() {
         stageprim.close();
     }
+    public void createTables(){
+        String createDb = "CREATE DATABASE IF NOT EXISTS DrJayaramHomeoClinic;";
+        String createTablePatient="CREATE TABLE IF NOT EXISTS Patient(`patient_id` int(8) NOT NULL,`patient_name` varchar(20) NOT NULL,`patient_age` int(4) NOT NULL,`patient_gender` text NOT NULL,`patient_address` varchar(30) NOT NULL,`patient_contact` varchar(12) NOT NULL,PRIMARY KEY (`patient_id`),KEY `patient_name` (`patient_name`));";
+        String createTableBill="CREATE TABLE IF NOT EXISTS bill_details(`bill_no` int(8) NOT NULL AUTO_INCREMENT,`patient_id` int(11) NOT NULL,`bill_date` varchar(12) NOT NULL,`item_name` varchar(12) NOT NULL,`qty` int(4) NOT NULL,`cost` int(4) NOT NULL,PRIMARY KEY (`bill_no`),KEY `patient_id` (`patient_id`),KEY `item_name` (`item_name`),CONSTRAINT `bill_details_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `Patient` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `bill_details_ibfk_2` FOREIGN KEY (`item_name`) REFERENCES `stock` (`item_name`) ON DELETE CASCADE ON UPDATE CASCADE);";
+        String createTableStock="CREATE TABLE IF NOT EXISTS stock(`item_name` varchar(12) NOT NULL,`item_price` int(12) NOT NULL,`item_quantity` int(12) NOT NULL,PRIMARY KEY (`item_name`),KEY `item_name` (`item_name`));";
+        String createTableRegister="CREATE TABLE `register` (`name` varchar(32) NOT NULL,`username` varchar(32) NOT NULL,`password` varchar(32) NOT NULL,PRIMARY KEY (`username`));";
+        String createTableSupplier="CREATE TABLE `Supplier` (`sup_id` int(4) NOT NULL,`sup_name` varchar(12) NOT NULL,`s_address` varchar(30) NOT NULL,`contact` varchar(12) NOT NULL,`branch` varchar(12) NOT NULL,PRIMARY KEY (`sup_name`));";
+        String createTablePurchaseDetails="CREATE TABLE `purchase_details` (purchase_id` int(12) NOT NULL AUTO_INCREMENT,`sup_name` varchar(12) NOT NULL,`purchase_date` varchar(12) NOT NULL,`item_name` varchar(12) NOT NULL,`qty` int(11) NOT NULL,`total` int(12) NOT NULL,PRIMARY KEY (`purchase_id`),KEY `item_name` (`item_name`),KEY `sup_name` (`sup_name`),CONSTRAINT `purchase_details_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `stock` (`item_name`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `purchase_details_ibfk_2` FOREIGN KEY (`sup_name`) REFERENCES `Supplier` (`sup_name`) ON DELETE CASCADE ON UPDATE CASCADE);";
+        try {
 
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url, username, Password);
+            stat = conn.prepareStatement(createDb);
+
+            int result = stat.executeUpdate();
+            System.out.print("sql statement"+result);
+//            below code for patient
+            conn = DriverManager.getConnection(url+"/DrJayaramHomeoClinic", username, Password);
+            stat=conn.prepareStatement(createTablePatient);
+            result=stat.executeUpdate();
+            
+            stat=conn.prepareStatement(createTableStock);
+            result=stat.executeUpdate();
+            
+            stat=conn.prepareStatement(createTableBill);
+            result=stat.executeUpdate();
+            
+            stat=conn.prepareStatement(createTableRegister);
+            result=stat.executeUpdate();
+            
+            stat=conn.prepareStatement(createTableSupplier);
+            result=stat.executeUpdate();
+            
+//            stat=conn.prepareStatement(createTablePurchaseDetails);
+//            result=stat.executeUpdate();
+            
+//            while (result.next()) {
+//                System.out.print("sql statement"+createDb);
+////                sName.add(result.getString(2));
+//                
+////                System.out.print("result.getString(2)"+result.getString(2));
+////                System.out.print("result.getString(3)"+result.getString(3));
+////                System.out.print("result.getString(4)"+result.getString(4));
+////                System.out.print("result.getString(5)"+result.getString(5));
+////                supplierList.add(new supplierModel(result.getString(2), result.getString(3),result.getString(5), result.getString(4) + ""));
+//
+//            }
+           
+        } catch (SQLException r) {
+            showError(r.getMessage());
+        } catch (ClassNotFoundException n) {
+            showError(n.getMessage());
+        } catch (NullPointerException l) {
+            showError(l.getMessage());
+        } finally {
+            try {
+                conn.close();
+                stat.close();
+            } catch (SQLException rr) {
+                showError(rr.getMessage());
+            }
+        }
+
+    }
     public void signupWindow() {
 
         try {
