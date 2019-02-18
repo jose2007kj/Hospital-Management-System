@@ -73,13 +73,13 @@
                </children>
             </GridPane>
             <JFXButton id="signinbtn" fx:id="signinBTN" buttonType="RAISED" layoutX="40.0" layoutY="327.0" onAction="#signinAction" prefHeight="37.0" prefWidth="109.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 20px;" text="Sign in" textFill="WHITE" />
-            <JFXButton id="signupbtn" fx:id="signupBTN" buttonType="RAISED" layoutX="163.0" layoutY="327.0" onAction="#signupAction" prefHeight="37.0" prefWidth="109.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 20px;" text="Register" textFill="WHITE" />
+            <!--<JFXButton id="signupbtn" fx:id="signupBTN" buttonType="RAISED" layoutX="163.0" layoutY="327.0" onAction="#signupAction" prefHeight="37.0" prefWidth="109.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 20px;" text="Register" textFill="WHITE" />-->
             <JFXButton fx:id="forgotPasswordBRN" layoutX="94.0" layoutY="402.0" text="Forgot my password" textAlignment="CENTER" textFill="WHITE" underline="true" />
-            <ImageView fx:id="logoImage" fitHeight="72.0" fitWidth="68.0" layoutX="117.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+<!--            <ImageView fx:id="logoImage" fitHeight="72.0" fitWidth="68.0" layoutX="117.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../src/2cf7c5ba-bbc3-4a1a-b097-168476d0217f-Glamouros-logo-design-01-1.png" />
                </image>
-            </ImageView>
+            </ImageView>-->
          </children>
       </Pane>
    </children>

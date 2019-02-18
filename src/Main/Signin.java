@@ -36,6 +36,7 @@ public class Signin extends Application {
     static Stage stageprim, stage1, stage2, stage4, stage3, stage5, stage6,stage7;
     public String clinicName = "";
     public String pageName="";
+     public String role="";
     private static Connection conn = null;
     private static PreparedStatement stat = null,pStat=null;
     private static String url = "jdbc:mysql://localhost:3306";
@@ -98,10 +99,24 @@ public class Signin extends Application {
         String createDb = "CREATE DATABASE IF NOT EXISTS DrJayaramHomeoClinic;";
         String createTablePatient="CREATE TABLE IF NOT EXISTS Patient(`patient_id` int(8) NOT NULL,`patient_name` varchar(20) NOT NULL,`patient_age` int(4) NOT NULL,`patient_gender` text NOT NULL,`patient_address` varchar(30) NOT NULL,`patient_contact` varchar(12) NOT NULL,PRIMARY KEY (`patient_id`),KEY `patient_name` (`patient_name`));";
         String createTableBill="CREATE TABLE IF NOT EXISTS bill_details(`bill_no` int(8) NOT NULL AUTO_INCREMENT,`patient_id` int(11) NOT NULL,`bill_date` varchar(12) NOT NULL,`item_name` varchar(12) NOT NULL,`qty` int(4) NOT NULL,`cost` int(4) NOT NULL,PRIMARY KEY (`bill_no`),KEY `patient_id` (`patient_id`),KEY `item_name` (`item_name`),CONSTRAINT `bill_details_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `Patient` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `bill_details_ibfk_2` FOREIGN KEY (`item_name`) REFERENCES `stock` (`item_name`) ON DELETE CASCADE ON UPDATE CASCADE);";
-        String createTableStock="CREATE TABLE IF NOT EXISTS stock(`item_name` varchar(12) NOT NULL,`item_price` int(12) NOT NULL,`item_quantity` int(12) NOT NULL,PRIMARY KEY (`item_name`),KEY `item_name` (`item_name`));";
-        String createTableRegister="CREATE TABLE `register` (`name` varchar(32) NOT NULL,`username` varchar(32) NOT NULL,`password` varchar(32) NOT NULL,PRIMARY KEY (`username`));";
-        String createTableSupplier="CREATE TABLE `Supplier` (`sup_id` int(4) NOT NULL,`sup_name` varchar(12) NOT NULL,`s_address` varchar(30) NOT NULL,`contact` varchar(12) NOT NULL,`branch` varchar(12) NOT NULL,PRIMARY KEY (`sup_name`));";
-        String createTablePurchaseDetails="CREATE TABLE `purchase_details` (purchase_id` int(12) NOT NULL AUTO_INCREMENT,`sup_name` varchar(12) NOT NULL,`purchase_date` varchar(12) NOT NULL,`item_name` varchar(12) NOT NULL,`qty` int(11) NOT NULL,`total` int(12) NOT NULL,PRIMARY KEY (`purchase_id`),KEY `item_name` (`item_name`),KEY `sup_name` (`sup_name`),CONSTRAINT `purchase_details_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `stock` (`item_name`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `purchase_details_ibfk_2` FOREIGN KEY (`sup_name`) REFERENCES `Supplier` (`sup_name`) ON DELETE CASCADE ON UPDATE CASCADE);";
+        String createTableStock="CREATE TABLE IF NOT EXISTS stock(`item_name` varchar(12) NOT NULL,`expiry_date` varchar(12) NOT NULL,`item_price` int(12) NOT NULL,`item_quantity` int(12) NOT NULL,PRIMARY KEY (`item_name`),KEY `item_name` (`item_name`));";
+        String createTableRegister="CREATE TABLE IF NOT EXISTS `register` (`Role` varchar(32) NOT NULL,`username` varchar(32) NOT NULL,`password` varchar(32) NOT NULL,PRIMARY KEY (`username`));";
+        String createTableSupplier="CREATE TABLE IF NOT EXISTS `Supplier` (`sup_id` int(4) NOT NULL,`sup_name` varchar(12) NOT NULL,`s_address` varchar(30) NOT NULL,`contact` varchar(12) NOT NULL,`branch` varchar(12) NOT NULL,PRIMARY KEY (`sup_name`));";
+        String createTablePurchaseDetails="CREATE TABLE IF NOT EXISTS `purchase_details` (`purchase_id` int(12) NOT NULL AUTO_INCREMENT,`sup_name` varchar(12) NOT NULL,`purchase_date` varchar(12) NOT NULL,`item_name` varchar(12) NOT NULL,`qty` int(11) NOT NULL,`total` int(12) NOT NULL,PRIMARY KEY (`purchase_id`),KEY `item_name` (`item_name`),KEY `sup_name` (`sup_name`),CONSTRAINT `purchase_details_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `stock` (`item_name`) ON DELETE CASCADE ON UPDATE CASCADE,CONSTRAINT `purchase_details_ibfk_2` FOREIGN KEY (`sup_name`) REFERENCES `Supplier` (`sup_name`) ON DELETE CASCADE ON UPDATE CASCADE);";
+        String createTableConsultataion="CREATE TABLE IF NOT EXISTS `consultation` (`consultation_id` int(11) NOT NULL AUTO_INCREMENT,`patient_id` int(12) NOT NULL,`consult_date` varchar(12) NOT NULL,`consult_fee` int(12) NOT NULL,`consult_status` varchar(24) NOT NULL,`disease` varchar(24) NOT NULL,`duration` varchar(12) NOT NULL,`medicine_prescribed` varchar(24) NOT NULL,PRIMARY KEY (`consultation_id`),KEY `patient_id` (`patient_id`),CONSTRAINT `consultation_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `Patient` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE);";
+        String sqlInsert = "INSERT INTO DrJayaramHomeoClinic.register(role,username,password) VALUES (?,?,?)";
+        String [] role = new String [2];
+        role[0]="doctor";
+        role[1]="pharmacy";
+        String [] uname = new String [2];
+        uname[0]="drnkjayaram";
+        uname[1]="pharmacy";
+        
+        String [] pword = new String [2];
+        pword[0]="drnkjayaram123";
+        pword[1]="pharmacy123";
+        
+
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -124,7 +139,35 @@ public class Signin extends Application {
             stat=conn.prepareStatement(createTableRegister);
             result=stat.executeUpdate();
             
+            if(result ==0){
+                
+                stat = conn.prepareStatement(sqlInsert);
+                int rows=0;
+                do{
+                    try{
+                    stat.setString(1, role[rows]);
+                    stat.setString(2, uname[rows]);
+        //            stat.setString(3, patientAddress);
+                    stat.setString(3, pword[rows]);
+        //            stat.setString(5, patientContact);
+
+
+                    stat.executeUpdate();
+                    }catch(Exception e){
+                        System.out.print("exception r"+e.getMessage());
+                    }
+                    rows++;
+                }while(rows<2);
+
+            }
+            
             stat=conn.prepareStatement(createTableSupplier);
+            result=stat.executeUpdate();
+            
+            stat=conn.prepareStatement(createTablePurchaseDetails);
+            result=stat.executeUpdate();
+            
+            stat=conn.prepareStatement(createTableConsultataion);
             result=stat.executeUpdate();
             
 //            stat=conn.prepareStatement(createTablePurchaseDetails);
@@ -143,10 +186,13 @@ public class Signin extends Application {
 //            }
            
         } catch (SQLException r) {
+            System.out.print("exception r"+r.getMessage());
             showError(r.getMessage());
         } catch (ClassNotFoundException n) {
+            System.out.print("exception r"+n.getMessage());
             showError(n.getMessage());
         } catch (NullPointerException l) {
+            System.out.print("exception r"+l.getMessage());
             showError(l.getMessage());
         } finally {
             try {
@@ -183,9 +229,18 @@ public class Signin extends Application {
     }
 
     public void clinicsWindow() {
-
+        FXMLLoader loader;
         try {
-            FXMLLoader loader = new FXMLLoader(Signin.class.getResource("/view/FXMLhomeDocument.fxml"));
+            switch(role){
+                case "doctor":
+                                loader = new FXMLLoader(Signin.class.getResource("/view/FXMLhomeDoctor.fxml"));
+            
+                                break;
+                default:
+                        loader = new FXMLLoader(Signin.class.getResource("/view/FXMLPharmacy.fxml"));
+            
+            };
+//            FXMLLoader loader = new FXMLLoader(Signin.class.getResource("/view/FXMLhomeDocument.fxml"));
             AnchorPane pane = loader.load();
             ClinicsMainWindowController controller = loader.getController();
             stage3 = new Stage();

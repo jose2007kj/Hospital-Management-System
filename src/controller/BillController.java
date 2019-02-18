@@ -271,7 +271,7 @@ public class BillController implements Initializable {
    
     void fechPatientId() {
 
-        String sqlSelect = "select * from test.Patient ";
+        String sqlSelect = "select * from DrJayaramHomeoClinic.Patient ";
 
         try {
 
@@ -305,7 +305,7 @@ public class BillController implements Initializable {
 
     }
     void fetchIname(){
-        String sqlSelect = "select * from test.stock";
+        String sqlSelect = "select * from DrJayaramHomeoClinic.stock";
 
         try {
 
@@ -383,7 +383,7 @@ public class BillController implements Initializable {
     private static void insert(int patientid, String itemName, String billDate,int quantity,int total) {
         try {
 
-            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(patient_id,bill_date,item_name,qty,cost) VALUES (?,?,?,?,?)";
+            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(patient_id,bill_date,item_name,qty,cost) VALUES (?,?,?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -497,7 +497,7 @@ public class BillController implements Initializable {
 
     void addrowsToTable() {
 
-        String sqlSelect = "select * from test." + ClinicsMainWindowController.tableName + " ";
+        String sqlSelect = "select * from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " ";
         String temp="";
         try {
 
@@ -508,7 +508,7 @@ public class BillController implements Initializable {
             result = stat.executeQuery();
 
             while (result.next()) {
-                String sqlfetchPatients = "select * from test.Patient where patient_id='"+result.getInt(2)+"'";
+                String sqlfetchPatients = "select * from DrJayaramHomeoClinic.Patient where patient_id='"+result.getInt(2)+"'";
                 pStat = conn.prepareStatement(sqlfetchPatients);
                 pResult=pStat.executeQuery();
                 while(pResult.next()){
@@ -544,7 +544,7 @@ public class BillController implements Initializable {
             int index = tableView.getSelectionModel().getSelectedIndex();
 //            billList.remove(index);
 //            System.out.print("delete"+billList.get(index).getSupName());
-            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where patient_id='" + Integer.parseInt(selectedPaientId)+ "' and" + " item_name='" + billList.get(index).getItemName() + "' and"
+            String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " where patient_id='" + Integer.parseInt(selectedPaientId)+ "' and" + " item_name='" + billList.get(index).getItemName() + "' and"
                 + " bill_date='" + billList.get(index).getBillDate() + "' and" + " qty='" + billList.get(index).getQty() + "' and" 
                 + " cost='" + billList.get(index).getCost() +  "'";
             Class.forName("com.mysql.jdbc.Driver");
@@ -582,7 +582,7 @@ public class BillController implements Initializable {
 //        System.out.print("Iquantity"+Iquantity);
 //        System.out.print("Pcontact"+Pcontact);
         
-        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET patient_id='" + Integer.parseInt(selectedPaientId) + "' ,item_name='" + selectedItem + "' , "
+        String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET patient_id='" + Integer.parseInt(selectedPaientId) + "' ,item_name='" + selectedItem + "' , "
                 + " bill_date='" + billDate.getValue().toString()+ "',qty='" + quantityTF.getText() + "',cost='" + costTF.getText() + "' "
                 + " WHERE patient_id='" + selectedPaientId2+ "' and" + " item_name='" + selectedItem1 + "' and"
                 + " bill_date='" + billsDate + "' and" + " qty='" + Iquantity + "' and" 
@@ -646,7 +646,7 @@ public class BillController implements Initializable {
         if (result.get() == ButtonType.OK) {
             try {
                 billList.removeAll(billList);
-                String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName;
+                String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName;
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection(url, username, Password);
                 stat = conn.prepareStatement(sqlSelect);

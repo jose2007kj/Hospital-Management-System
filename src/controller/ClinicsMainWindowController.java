@@ -163,6 +163,18 @@ public class ClinicsMainWindowController implements Initializable {
         } catch (Exception ex) {
         }
     }
+    @FXML
+    public void pharmacyStock(ActionEvent event) {
+        try {
+            signin.pageName="Stock";
+            tableName = "stock";
+            signin.clinicName = "Stock";
+            signin.SubClinicWindow();
+            signin.clinicsWindowClose();
+
+        } catch (Exception ex) {
+        }
+    }
 
     @FXML
     public void OpenClinicWindow3(ActionEvent event) {
@@ -178,7 +190,7 @@ public class ClinicsMainWindowController implements Initializable {
     }
 
     @FXML
-    public void OpenClinicWindow4(ActionEvent event) {
+    public void pharmacyBill(ActionEvent event) {
         try {
             signin.pageName="Bill";
             tableName = "bill_details";

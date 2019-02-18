@@ -87,7 +87,7 @@ public class SigninFXMLController implements Initializable {
     @FXML
     void signinAction(ActionEvent event) {
         
-        String sqlSelect="select * from test.register where username='"+usernameTF.getText().toString()+"' and password='"+passwordTF.getText().toString()+"' ";
+        String sqlSelect="select * from DrJayaramHomeoClinic.register where username='"+usernameTF.getText().toString()+"' and password='"+passwordTF.getText().toString()+"' ";
         
         try {
            Thread.sleep(1000);
@@ -109,8 +109,9 @@ public class SigninFXMLController implements Initializable {
        if (result.next()){ 
            if ((result.getString("username")).equals(usernameTF.getText().toString()) 
                   && (result.getString("password")).equals(passwordTF.getText().toString())   ) {
-                nameforHome=result.getString("name");
+                nameforHome=result.getString("role");
                    usernameforHome=result.getString("username");
+                            su.role=nameforHome;
                             su.clinicsWindow();
                             su.signInClose();
                             
@@ -171,15 +172,15 @@ public class SigninFXMLController implements Initializable {
     
       
     
-    @FXML
-    void signupAction(ActionEvent event) {
-        try {
-          su.signInClose();
-          su.signupWindow();
-        } catch (Exception ex) {
-        }
-    }
-   
+//    @FXML
+//    void signupAction(ActionEvent event) {
+//        try {
+//          su.signInClose();
+//          su.signupWindow();
+//        } catch (Exception ex) {
+//        }
+//    }
+//   
      
     public void initialize(URL url, ResourceBundle rb) {
         

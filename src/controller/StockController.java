@@ -246,7 +246,7 @@ public class StockController implements Initializable {
     private static void insert(String itemName, String itemPrice,String itemQuantity) {
         try {
 
-            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(item_name,item_price,item_quantity) VALUES (?,?,?)";
+            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(item_name,item_price,item_quantity) VALUES (?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -317,7 +317,7 @@ public class StockController implements Initializable {
 
     void addrowsToTable() {
 
-        String sqlSelect = "select * from test." + ClinicsMainWindowController.tableName + " ";
+        String sqlSelect = "select * from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " ";
 
         try {
 
@@ -358,7 +358,7 @@ public class StockController implements Initializable {
             int index = tableView.getSelectionModel().getSelectedIndex();
 //            itemList.remove(index);
             System.out.print("delete"+itemList.get(index).getName());
-            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where item_name='" + itemList.get(index).getName()+"'";
+            String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " where item_name='" + itemList.get(index).getName()+"'";
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlSelect);
@@ -394,7 +394,7 @@ public class StockController implements Initializable {
 //        System.out.print("Iprice"+Iprice);
 //        System.out.print("Pcontact"+Pcontact);
         
-        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET item_name='" + stockNameTF.getText() +"' , "
+        String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET item_name='" + stockNameTF.getText() +"' , "
                 + " item_quantity='" + itemQuanityTF.getText()+ "', item_price='" + itemPriceTF.getText() + "' "
                 + " WHERE item_name='" + Sname+ "' and"
                 + " item_price='" + Iprice + "' and" + " item_quantity='" + Iquantity + "'";
@@ -453,7 +453,7 @@ public class StockController implements Initializable {
         if (result.get() == ButtonType.OK) {
             try {
                 itemList.removeAll(itemList);
-                String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName;
+                String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName;
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection(url, username, Password);
                 stat = conn.prepareStatement(sqlSelect);

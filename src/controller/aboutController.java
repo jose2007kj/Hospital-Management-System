@@ -40,7 +40,7 @@ public class aboutController implements Initializable{
     @FXML
     void openTwitterLink(ActionEvent event) {
      try {
- java.awt.Desktop.getDesktop().browse(new URI("https://eg.linkedin.com/in/mohamed-adel-891297a6"));
+ java.awt.Desktop.getDesktop().browse(new URI(""));
      } catch (URISyntaxException ex) {
         ex.printStackTrace();   
      } catch (IOException ex) {

@@ -235,7 +235,7 @@ public class SupplierWindowController implements Initializable {
     private static void insert(String suppliername, String address, String branch, String contact) {
         try {
 
-            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(sup_name,s_address,branch,contact) VALUES (?,?,?,?)";
+            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(sup_name,s_address,branch,contact) VALUES (?,?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -301,7 +301,7 @@ public class SupplierWindowController implements Initializable {
 
     void addrowsToTable() {
 
-        String sqlSelect = "select * from test." + ClinicsMainWindowController.tableName + " ";
+        String sqlSelect = "select * from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " ";
 
         try {
 
@@ -342,7 +342,7 @@ public class SupplierWindowController implements Initializable {
             int index = tableView.getSelectionModel().getSelectedIndex();
 //            supplierList.remove(index);
             System.out.print("delete"+supplierList.get(index).getName());
-            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where sup_name='" + supplierList.get(index).getName()+"'";
+            String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " where sup_name='" + supplierList.get(index).getName()+"'";
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlSelect);
@@ -378,7 +378,7 @@ public class SupplierWindowController implements Initializable {
         System.out.print("Sbranch"+Sbranch);
         System.out.print("Scontact"+Scontact);
         
-        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET sup_name='" + supNameTF.getText() + "' ,s_address='" + supAddressTF.getText() + "' , "
+        String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET sup_name='" + supNameTF.getText() + "' ,s_address='" + supAddressTF.getText() + "' , "
                 + "  branch='" + branchTF.getText() + "',contact='" + contactTF.getText() + "' "
                 + " WHERE sup_name='" + Sname + "' and" + " s_address='" + Saddress + "' and"
                 + " branch='" + Sbranch + "' and"
@@ -437,7 +437,7 @@ public class SupplierWindowController implements Initializable {
         if (result.get() == ButtonType.OK) {
             try {
                 supplierList.removeAll(supplierList);
-                String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName;
+                String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName;
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection(url, username, Password);
                 stat = conn.prepareStatement(sqlSelect);

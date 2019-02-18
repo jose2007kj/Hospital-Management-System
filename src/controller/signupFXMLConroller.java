@@ -76,7 +76,7 @@ public class signupFXMLConroller implements Initializable {
 
     private static void insert(String name, String user_name, String password) {
 
-        sqlInsert = "INSERT INTO test.register(name,username,password) VALUES (?,?,?)";
+        sqlInsert = "INSERT INTO DrJayaramHomeoClinic.register(name,username,password) VALUES (?,?,?)";
 
         try {
             Class.forName("com.mysql.jdbc.Driver");

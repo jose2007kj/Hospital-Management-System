@@ -79,7 +79,7 @@ public class UsersController implements Initializable{
     
      void addrowsToTable() {
 
-        String sqlSelect = "select * from test.register ";
+        String sqlSelect = "select * from DrJayaramHomeoClinic.register ";
 
         try {
 

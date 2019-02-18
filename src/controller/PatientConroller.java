@@ -248,7 +248,7 @@ public class PatientConroller implements Initializable {
     private static void insert(String patientName, String patientAge, String patientAddress, String patientGender,String patientContact) {
         try {
 
-            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(patient_name,patient_age,patient_address,patient_gender,patient_contact) VALUES (?,?,?,?,?)";
+            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(patient_name,patient_age,patient_address,patient_gender,patient_contact) VALUES (?,?,?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -319,7 +319,7 @@ public class PatientConroller implements Initializable {
 
     void addrowsToTable() {
 
-        String sqlSelect = "select * from test." + ClinicsMainWindowController.tableName + " ";
+        String sqlSelect = "select * from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " ";
 
         try {
 
@@ -360,7 +360,7 @@ public class PatientConroller implements Initializable {
             int index = tableView.getSelectionModel().getSelectedIndex();
 //            patientsList.remove(index);
             System.out.print("delete"+patientsList.get(index).getPatientName());
-            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where patient_name='" + patientsList.get(index).getPatientName()+"'";
+            String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " where patient_name='" + patientsList.get(index).getPatientName()+"'";
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlSelect);
@@ -396,7 +396,7 @@ public class PatientConroller implements Initializable {
 //        System.out.print("Page"+Page);
 //        System.out.print("Pcontact"+Pcontact);
         
-        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET patient_name='" + patientNameTF.getText() + "' ,patient_address='" + patientAddressTF.getText() + "' , "
+        String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET patient_name='" + patientNameTF.getText() + "' ,patient_address='" + patientAddressTF.getText() + "' , "
                 + " patient_gender='" + patientGenderTF.getText()+ "', patient_age='" + patientAgeTF.getText() + "',patient_contact='" + patientContactTF.getText() + "' "
                 + " WHERE patient_name='" + Pname+ "' and" + " patient_address='" + Paddress + "' and"
                 + " patient_age='" + Page + "' and" + " patient_gender='" + Pgender + "' and"
@@ -456,7 +456,7 @@ public class PatientConroller implements Initializable {
         if (result.get() == ButtonType.OK) {
             try {
                 patientsList.removeAll(patientsList);
-                String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName;
+                String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName;
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection(url, username, Password);
                 stat = conn.prepareStatement(sqlSelect);

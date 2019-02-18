@@ -255,7 +255,7 @@ public class PurchaseDeailsController implements Initializable {
     }
     void fetchSname() {
 
-        String sqlSelect = "select * from test.Supplier ";
+        String sqlSelect = "select * from DrJayaramHomeoClinic.Supplier ";
 
         try {
 
@@ -294,7 +294,7 @@ public class PurchaseDeailsController implements Initializable {
 
     }
     void fetchIname(){
-        String sqlSelect = "select * from test.stock";
+        String sqlSelect = "select * from DrJayaramHomeoClinic.stock";
 
         try {
 
@@ -358,7 +358,7 @@ public class PurchaseDeailsController implements Initializable {
     private static void insert(String supName, String itemName, String purchaseDate, String expiryDate,int quantity,int total) {
         try {
 
-            sqlInsert = "INSERT INTO test." + ClinicsMainWindowController.tableName + "(sup_name,item_name,purchase_date,expiry_date,qty,total) VALUES (?,?,?,?,?,?)";
+            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(sup_name,item_name,purchase_date,expiry_date,qty,total) VALUES (?,?,?,?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -430,7 +430,7 @@ public class PurchaseDeailsController implements Initializable {
 
     void addrowsToTable() {
 
-        String sqlSelect = "select * from test." + ClinicsMainWindowController.tableName + " ";
+        String sqlSelect = "select * from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " ";
 
         try {
 
@@ -471,7 +471,7 @@ public class PurchaseDeailsController implements Initializable {
             int index = tableView.getSelectionModel().getSelectedIndex();
 //            purchaseList.remove(index);
             System.out.print("delete"+purchaseList.get(index).getSupName());
-            String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName + " where sup_name='" + purchaseList.get(index).getSupName()+ "' and" + " item_name='" + purchaseList.get(index).getItemName() + "' and"
+            String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " where sup_name='" + purchaseList.get(index).getSupName()+ "' and" + " item_name='" + purchaseList.get(index).getItemName() + "' and"
                 + " purchase_date='" + purchaseList.get(index).getPurchaseDate() + "' and" + " expiry_date='" + purchaseList.get(index).getExpiryDate() + "' and" + " qty='" + purchaseList.get(index).getQty() + "' and" 
                 + " total='" + purchaseList.get(index).getTotal() +  "'";
             Class.forName("com.mysql.jdbc.Driver");
@@ -509,7 +509,7 @@ public class PurchaseDeailsController implements Initializable {
 //        System.out.print("Iquantity"+Iquantity);
 //        System.out.print("Pcontact"+Pcontact);
         
-        String sqlUpdat = "UPDATE  test." + ClinicsMainWindowController.tableName + " SET sup_name='" + selectedSup + "' ,item_name='" + selectedItem + "' , "
+        String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET sup_name='" + selectedSup + "' ,item_name='" + selectedItem + "' , "
                 + " purchase_date='" + purchaseDate.getValue().toString()+ "', expiry_date='" + expiryDate.getValue().toString() +"',qty='" + quantityTF.getText() + "',total='" + totalTF.getText() + "' "
                 + " WHERE sup_name='" + selectedSup1+ "' and" + " item_name='" + selectedItem1 + "' and"
                 + " purchase_date='" + Pdate + "' and" + " expiry_date='" + Edate + "' and" + " qty='" + Iquantity + "' and" 
@@ -573,7 +573,7 @@ public class PurchaseDeailsController implements Initializable {
         if (result.get() == ButtonType.OK) {
             try {
                 purchaseList.removeAll(purchaseList);
-                String sqlSelect = "delete  from test." + ClinicsMainWindowController.tableName;
+                String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName;
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection(url, username, Password);
                 stat = conn.prepareStatement(sqlSelect);
