@@ -13,14 +13,14 @@ import javafx.beans.property.StringProperty;
  * @author mary
  */
 public class StockModel extends RecursiveTreeObject<StockModel>{ 
-    public StringProperty itemName,itemPrice,itemQuantity;
+    public StringProperty itemName,itemPrice,itemQuantity,itemExpirey;
 //   public int sup_id;
 
-    public StockModel(String itemName,String itemPrice,String itemQuantity) {
+    public StockModel(String itemName,String itemPrice,String itemQuantity,String itemExpirey) {
         this.itemName=new SimpleStringProperty(itemName);
         this.itemPrice=new SimpleStringProperty(itemPrice);
         this.itemQuantity=new SimpleStringProperty(itemQuantity);
-        
+        this.itemExpirey=new SimpleStringProperty(itemExpirey);
         
         
     }
@@ -46,6 +46,13 @@ public class StockModel extends RecursiveTreeObject<StockModel>{
     }
     public String getQuantity() {
        return itemQuantity.get();
+    }
+    public String getExpiryDate() {
+    return itemExpirey.get();
+    }
+
+    public void setExpiryDate(String expiryDate) {
+    this.itemExpirey = new SimpleStringProperty(expiryDate);
     }
     
 }

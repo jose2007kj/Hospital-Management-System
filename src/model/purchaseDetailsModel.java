@@ -17,16 +17,16 @@ public StringProperty purchaseId;
 public StringProperty supName;
 public StringProperty purchaseDate;
 public StringProperty itemName;
-public StringProperty expiryDate;
+//public StringProperty expiryDate;
 public StringProperty qty;
 public StringProperty total;
 //private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-public purchaseDetailsModel(String supName,String itemName,String purchaseDate,String expiryDate,String qty,String total) {
+public purchaseDetailsModel(String supName,String itemName,String purchaseDate,String qty,String total) {
         this.supName=new SimpleStringProperty(supName);
         this.purchaseDate=new SimpleStringProperty(purchaseDate);
         this.itemName=new SimpleStringProperty(itemName);
-        this.expiryDate=new SimpleStringProperty(expiryDate);
+//        this.expiryDate=new SimpleStringProperty(expiryDate);
         this.qty=new SimpleStringProperty(qty);
         this.total=new SimpleStringProperty(total);
         
@@ -65,13 +65,13 @@ public void setItemName(String itemName) {
 this.itemName = new SimpleStringProperty(itemName);
 }
 
-public String getExpiryDate() {
-return expiryDate.get();
-}
-
-public void setExpiryDate(String expiryDate) {
-this.expiryDate = new SimpleStringProperty(expiryDate);
-}
+//public String getExpiryDate() {
+//return expiryDate.get();
+//}
+//
+//public void setExpiryDate(String expiryDate) {
+//this.expiryDate = new SimpleStringProperty(expiryDate);
+//}
 
 public String getQty() {
 return qty.get();

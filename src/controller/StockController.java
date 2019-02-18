@@ -50,6 +50,7 @@ public class StockController implements Initializable {
     @FXML
     private JFXTreeTableView<StockModel> tableView;
     ObservableList<StockModel> itemList;
+    JFXDatePicker expiryDate;
 //    JFXDatePicker datePicker;
     @FXML
     private JFXTextField searchTF;
@@ -63,9 +64,9 @@ public class StockController implements Initializable {
     private GridPane InsertGridPane;
 
     @FXML
-    private Label stockNameLabel,itemPriceLabel,itemQuantityLabel;//,patientContactLabel,patientAddressLabel;
+    private Label stockNameLabel,itemPriceLabel,expireyLabel,itemQuantityLabel;//,patientContactLabel,patientAddressLabel;
 
-    String Sname,Iprice, Iquantity;// Paddress, , Pcontact;
+    String Sname,Iprice, Iquantity,Edate;// Paddress, , Pcontact;
 
     private static Connection conn = null;
     private static PreparedStatement stat = null;
@@ -106,12 +107,11 @@ public class StockController implements Initializable {
         itemPriceTF.getValidators().add(validator("Input is required"));
 //        patientContactTF.getValidators().add(validator("Input is required"));
 	itemQuanityTF.getValidators().add(validator("Input is required"));
-//
-//        datePicker = new JFXDatePicker();
-//        datePicker.setPrefWidth(240);
-//        datePicker.setPrefHeight(41);
-//
-//        InsertGridPane.add(datePicker, 1, 3);
+        expiryDate = new JFXDatePicker();
+        expiryDate.setPrefWidth(240);
+        expiryDate.setPrefHeight(41);
+        InsertGridPane.add(expiryDate, 1, 3);
+
 
         JFXTreeTableColumn<StockModel, String> SNcoloumn = new JFXTreeTableColumn<>("Stock Name");
 
@@ -166,33 +166,22 @@ public class StockController implements Initializable {
 
             }
         });
+        JFXTreeTableColumn<StockModel, String> ExpiryColoumn = new JFXTreeTableColumn<>("Expirey Date");
 
-//        JFXTreeTableColumn<patientModel, String> Diagnosiscolumn = new JFXTreeTableColumn<>("Diagnosis");
-//
-//        Diagnosiscolumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<patientModel, String>, ObservableValue<String>>() {
-//
-//            @Override
-//            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<patientModel, String> param) {
-//                return param.getValue().getValue().diagnosis;
-//
-//            }
-//        });
-//
-//        JFXTreeTableColumn<patientModel, String> Teatmentcolumn = new JFXTreeTableColumn<>("Treatment");
-//        Teatmentcolumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<patientModel, String>, ObservableValue<String>>() {
-//
-//            @Override
-//            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<patientModel, String> param) {
-//                return param.getValue().getValue().treatment;
-//
-//            }
-//        });
+        ExpiryColoumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<StockModel, String>, ObservableValue<String>>() {
+
+            @Override
+            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<StockModel, String> param) {
+                return param.getValue().getValue().itemExpirey;
+
+            }
+        });
 
         itemList = FXCollections.observableArrayList();
         addrowsToTable();
 
         TreeItem<StockModel> root = new RecursiveTreeItem<StockModel>(itemList, RecursiveTreeObject::getChildren);
-        tableView.getColumns().addAll(SNcoloumn,SPricecoloumn,SQuantitycoloumn);
+        tableView.getColumns().addAll(SNcoloumn,SPricecoloumn,SQuantitycoloumn,ExpiryColoumn);
         tableView.setRoot(root);
         tableView.setShowRoot(false);
 
@@ -224,6 +213,9 @@ public class StockController implements Initializable {
     }
 
     public void showDetails(TreeItem<StockModel> pModel) {
+        expiryDate.setValue(LocalDate.parse(pModel.getValue().getExpiryDate()));
+        expireyLabel.setText(pModel.getValue().getExpiryDate());
+        Edate= pModel.getValue().getExpiryDate();
         stockNameLabel.setText(pModel.getValue().getName());
 //        patientAddressLabel.setText(pModel.getValue().getPatientAddress());
         itemPriceLabel.setText(pModel.getValue().getPrice());
@@ -243,10 +235,10 @@ public class StockController implements Initializable {
        
     }
 
-    private static void insert(String itemName, String itemPrice,String itemQuantity) {
+    private static void insert(String itemName, String itemPrice,String itemQuantity,String expiry) {
         try {
 
-            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(item_name,item_price,item_quantity) VALUES (?,?,?)";
+            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(item_name,item_price,item_quantity,expiry_date) VALUES (?,?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -256,7 +248,7 @@ public class StockController implements Initializable {
             stat.setString(2, itemPrice);
 //            stat.setString(3, patientAddress);
             stat.setString(3, itemQuantity);
-//            stat.setString(5, patientContact);
+            stat.setString(4, expiry);
             
 
             stat.executeUpdate();
@@ -296,8 +288,8 @@ public class StockController implements Initializable {
 
         try {
             
-            insert(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText());
-            itemList.add(new StockModel(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText()));
+            insert(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText(),expiryDate.getValue().toString());
+            itemList.add(new StockModel(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText(),expiryDate.getValue().toString()));
        
         }
         catch (NullPointerException cc) {
@@ -328,11 +320,11 @@ public class StockController implements Initializable {
             result = stat.executeQuery();
 
             while (result.next()) {
-                System.out.print("result.getString(1)"+result.getString(1));
-                System.out.print("result.getString(2)"+result.getString(2));
-                System.out.print("result.getString(3)"+result.getString(3));
+//                System.out.print("result.getString(1)"+result.getString(1));
+//                System.out.print("result.getString(2)"+result.getString(2));
+//                System.out.print("result.getString(3)"+result.getString(3));
 //                System.out.print("result.getString(5)"+result.getString(5));
-                itemList.add(new StockModel(result.getString(1), result.getString(2),result.getString(3)));
+                itemList.add(new StockModel(result.getString(1), result.getString(3),result.getString(4),result.getString(2)));
 
             }
         } catch (SQLException r) {
@@ -387,7 +379,7 @@ public class StockController implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<StockModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        StockModel PatientModel = new StockModel(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText());
+        StockModel PatientModel = new StockModel(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText(),expiryDate.getValue().toString());
         pModel.setValue(PatientModel);
 //        System.out.print("Sname"+Sname);
 //        System.out.print("Saddress"+Saddress);
@@ -395,7 +387,7 @@ public class StockController implements Initializable {
 //        System.out.print("Pcontact"+Pcontact);
         
         String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET item_name='" + stockNameTF.getText() +"' , "
-                + " item_quantity='" + itemQuanityTF.getText()+ "', item_price='" + itemPriceTF.getText() + "' "
+                + " item_quantity='" + itemQuanityTF.getText()+"', expiry_date='" + expiryDate.getValue().toString()+ "', item_price='" + itemPriceTF.getText() + "' "
                 + " WHERE item_name='" + Sname+ "' and"
                 + " item_price='" + Iprice + "' and" + " item_quantity='" + Iquantity + "'";
         try {

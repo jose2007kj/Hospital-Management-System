@@ -58,6 +58,8 @@
                   <Label alignment="CENTER" prefHeight="58.0" prefWidth="99.0" text="Item Name " />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="106.0" text="Price" GridPane.rowIndex="1" />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="107.0" text="Quantity" GridPane.rowIndex="2" />
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expiry Date" GridPane.rowIndex="3" />
+                  
 <!--                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Address" GridPane.rowIndex="3" />
                    <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Contact" GridPane.rowIndex="4" />-->
 <!--                  <Label alignment="CENTER" prefHeight="48.0" prefWidth="106.0" text="Treatment" GridPane.rowIndex="5" />
@@ -83,13 +85,15 @@
                   <Label alignment="CENTER" prefHeight="58.0" prefWidth="99.0" text="Item Name " />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="106.0" text="Price" GridPane.rowIndex="1" />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="107.0" text="Quantity" GridPane.rowIndex="2" />
-<!--                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Address" GridPane.rowIndex="3" />
-                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="106.0" text="Contact" GridPane.rowIndex="4" />-->
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expirey Date" GridPane.rowIndex="3" />
+                  <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="106.0" text="Contact" GridPane.rowIndex="4" />-->
                   <!--<Label alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Doctor Name" GridPane.rowIndex="1" />-->
                   <Label fx:id="stockNameLabel" prefHeight="33.0" prefWidth="242.0" GridPane.columnIndex="1" />
                   <Label fx:id="itemPriceLabel" prefHeight="38.0" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="itemQuantityLabel" prefHeight="51.0" prefWidth="251.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-<!--                  <Label fx:id="patientAddressLabel" prefHeight="78.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Label fx:id="expireyLabel" prefHeight="78.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  
+                  <!--                  <Label fx:id="patientAddressLabel" prefHeight="78.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label fx:id="patientContactLabel" prefHeight="82.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />-->
                   <!--<Label fx:id="treatmentLabel" prefHeight="77.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />-->
                </children>

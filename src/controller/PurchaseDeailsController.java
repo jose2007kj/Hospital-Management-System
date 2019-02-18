@@ -118,11 +118,11 @@ public class PurchaseDeailsController implements Initializable {
         purchaseDate = new JFXDatePicker();
         purchaseDate.setPrefWidth(240);
         purchaseDate.setPrefHeight(41);
-        expiryDate = new JFXDatePicker();
-        expiryDate.setPrefWidth(240);
-        expiryDate.setPrefHeight(41);
+//        expiryDate = new JFXDatePicker();
+//        expiryDate.setPrefWidth(240);
+//        expiryDate.setPrefHeight(41);
         InsertGridPane.add(purchaseDate, 1, 2);
-        InsertGridPane.add(expiryDate, 1, 3);
+//        InsertGridPane.add(expiryDate, 1, 3);
         fetchSname();
         fetchIname();
 //        itemNameCB.setValue("Select Item Name");
@@ -163,16 +163,16 @@ public class PurchaseDeailsController implements Initializable {
             }
         });
 
-        JFXTreeTableColumn<purchaseDetailsModel, String> ExpiryColoumn = new JFXTreeTableColumn<>("Expirey Date");
-
-        ExpiryColoumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<purchaseDetailsModel, String>, ObservableValue<String>>() {
-
-            @Override
-            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<purchaseDetailsModel, String> param) {
-                return param.getValue().getValue().expiryDate;
-
-            }
-        });
+//        JFXTreeTableColumn<purchaseDetailsModel, String> ExpiryColoumn = new JFXTreeTableColumn<>("Expirey Date");
+//
+//        ExpiryColoumn.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<purchaseDetailsModel, String>, ObservableValue<String>>() {
+//
+//            @Override
+//            public ObservableValue<String> call(TreeTableColumn.CellDataFeatures<purchaseDetailsModel, String> param) {
+//                return param.getValue().getValue().expiryDate;
+//
+//            }
+//        });
 
         JFXTreeTableColumn<purchaseDetailsModel, String> PurchaseDateColoumn = new JFXTreeTableColumn<>("Purchase Date");
 
@@ -220,7 +220,7 @@ public class PurchaseDeailsController implements Initializable {
         addrowsToTable();
 
         TreeItem<purchaseDetailsModel> root = new RecursiveTreeItem<purchaseDetailsModel>(purchaseList, RecursiveTreeObject::getChildren);
-        tableView.getColumns().addAll(SNcoloumn, INcoloumn, ExpiryColoumn, PurchaseDateColoumn,QuantityColoumn,TotalColoumn);
+        tableView.getColumns().addAll(SNcoloumn, INcoloumn, PurchaseDateColoumn,QuantityColoumn,TotalColoumn);
         tableView.setRoot(root);
         tableView.setShowRoot(false);
 
@@ -237,7 +237,6 @@ public class PurchaseDeailsController implements Initializable {
                         boolean flag = t.getValue().supName.getValue().contains(newValue)
                                 || t.getValue().itemName.getValue().contains(newValue)
                                 || t.getValue().purchaseDate.getValue().contains(newValue)
-                                || t.getValue().expiryDate.getValue().contains(newValue)
                                 || t.getValue().qty.getValue().contains(newValue)
                                 || t.getValue().total.getValue().contains(newValue);
                         return flag;
@@ -332,20 +331,20 @@ public class PurchaseDeailsController implements Initializable {
     }
     public void showDetails(TreeItem<purchaseDetailsModel> pModel) {
         purchaseDate.setValue(LocalDate.parse(pModel.getValue().getPurchaseDate()));
-        expiryDate.setValue(LocalDate.parse(pModel.getValue().getExpiryDate()));
+//        expiryDate.setValue(LocalDate.parse(pModel.getValue().getExpiryDate()));
         supplierNameCB.setValue(pModel.getValue().getSupName());
         itemNameCB.setValue(pModel.getValue().getItemName());
         supplierNameLabel.setText(pModel.getValue().getSupName());
         itemNameLabel.setText(pModel.getValue().getItemName());
         purchaseDateLabel.setText(pModel.getValue().getPurchaseDate());
         quantityLabel.setText(pModel.getValue().getQty());
-        expiryDateLabel.setText(pModel.getValue().getExpiryDate());
+//        expiryDateLabel.setText(pModel.getValue().getExpiryDate());
         totalLabel.setText(pModel.getValue().getTotal());
         quantityTF.setText(pModel.getValue().getQty());
         totalTF.setText(pModel.getValue().getTotal());
 
 
-        Edate= pModel.getValue().getExpiryDate();
+//        Edate= pModel.getValue().getExpiryDate();
         Iquantity = pModel.getValue().getQty();
         Pdate = pModel.getValue().getPurchaseDate();
         Itotal= pModel.getValue().getTotal();
@@ -355,10 +354,10 @@ public class PurchaseDeailsController implements Initializable {
        
     }
 
-    private static void insert(String supName, String itemName, String purchaseDate, String expiryDate,int quantity,int total) {
+    private static void insert(String supName, String itemName, String purchaseDate,int quantity,int total) {
         try {
 
-            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(sup_name,item_name,purchase_date,expiry_date,qty,total) VALUES (?,?,?,?,?,?)";
+            sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(sup_name,item_name,purchase_date,qty,total) VALUES (?,?,?,?,?)";
 
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -367,9 +366,9 @@ public class PurchaseDeailsController implements Initializable {
             stat.setString(1, supName);
             stat.setString(2, itemName);
             stat.setString(3, purchaseDate);
-            stat.setString(4, expiryDate);
-            stat.setInt(5, quantity);
-            stat.setInt(6, total);
+//            stat.setString(4, expiryDate);
+            stat.setInt(4, quantity);
+            stat.setInt(5, total);
             
 
             stat.executeUpdate();
@@ -409,8 +408,8 @@ public class PurchaseDeailsController implements Initializable {
 
         try {
             
-            insert(selectedSup, selectedItem,purchaseDate.getValue().toString(),expiryDate.getValue().toString(),Integer.parseInt(quantityTF.getText()),Integer.parseInt(totalTF.getText()));
-            purchaseList.add(new purchaseDetailsModel(selectedSup, selectedItem,purchaseDate.getValue().toString(),expiryDate.getValue().toString(),quantityTF.getText(),totalTF.getText()));
+            insert(selectedSup, selectedItem,purchaseDate.getValue().toString(),Integer.parseInt(quantityTF.getText()),Integer.parseInt(totalTF.getText()));
+            purchaseList.add(new purchaseDetailsModel(selectedSup, selectedItem,purchaseDate.getValue().toString(),quantityTF.getText(),totalTF.getText()));
        
         }
         catch (NullPointerException cc) {
@@ -445,7 +444,7 @@ public class PurchaseDeailsController implements Initializable {
                 System.out.print("result.getString(3)"+result.getString(3));
                 System.out.print("result.getString(4)"+result.getString(4));
                 System.out.print("result.getString(5)"+result.getString(5));
-                purchaseList.add(new purchaseDetailsModel(result.getString(2),result.getString(4),result.getString(3),result.getString(5), result.getInt(6)+"",result.getInt(7)+""));
+                purchaseList.add(new purchaseDetailsModel(result.getString(2),result.getString(4),result.getString(3), result.getInt(5)+"",result.getInt(6)+""));
 
             }
         } catch (SQLException r) {
@@ -472,7 +471,7 @@ public class PurchaseDeailsController implements Initializable {
 //            purchaseList.remove(index);
             System.out.print("delete"+purchaseList.get(index).getSupName());
             String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " where sup_name='" + purchaseList.get(index).getSupName()+ "' and" + " item_name='" + purchaseList.get(index).getItemName() + "' and"
-                + " purchase_date='" + purchaseList.get(index).getPurchaseDate() + "' and" + " expiry_date='" + purchaseList.get(index).getExpiryDate() + "' and" + " qty='" + purchaseList.get(index).getQty() + "' and" 
+                + " purchase_date='" + purchaseList.get(index).getPurchaseDate() + "' and" + " qty='" + purchaseList.get(index).getQty() + "' and" 
                 + " total='" + purchaseList.get(index).getTotal() +  "'";
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
@@ -480,10 +479,13 @@ public class PurchaseDeailsController implements Initializable {
             stat.executeUpdate();
             clear();
         } catch (SQLException r) {
+            System.out.print("delete error is "+r.getMessage());
             showError(r.getMessage());
         } catch (ClassNotFoundException n) {
+            System.out.print("delete error is "+n.getMessage());
             showError(n.getMessage());
         } catch (NullPointerException l) {
+            System.out.print("delete error is "+l.getMessage());
             showError(l.getMessage());
         } finally {
             try {
@@ -502,7 +504,7 @@ public class PurchaseDeailsController implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<purchaseDetailsModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        purchaseDetailsModel PatientModel = new purchaseDetailsModel(selectedSup, selectedItem,purchaseDate.getValue().toString(),expiryDate.getValue().toString(),quantityTF.getText(),totalTF.getText());
+        purchaseDetailsModel PatientModel = new purchaseDetailsModel(selectedSup, selectedItem,purchaseDate.getValue().toString(),quantityTF.getText(),totalTF.getText());
         pModel.setValue(PatientModel);
 //        System.out.print("Sname"+Sname);
 //        System.out.print("Saddress"+Saddress);
@@ -510,9 +512,9 @@ public class PurchaseDeailsController implements Initializable {
 //        System.out.print("Pcontact"+Pcontact);
         
         String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET sup_name='" + selectedSup + "' ,item_name='" + selectedItem + "' , "
-                + " purchase_date='" + purchaseDate.getValue().toString()+ "', expiry_date='" + expiryDate.getValue().toString() +"',qty='" + quantityTF.getText() + "',total='" + totalTF.getText() + "' "
+                + " purchase_date='" + purchaseDate.getValue().toString()+ "',qty='" + quantityTF.getText() + "',total='" + totalTF.getText() + "' "
                 + " WHERE sup_name='" + selectedSup1+ "' and" + " item_name='" + selectedItem1 + "' and"
-                + " purchase_date='" + Pdate + "' and" + " expiry_date='" + Edate + "' and" + " qty='" + Iquantity + "' and" 
+                + " purchase_date='" + Pdate + "' and"+ " qty='" + Iquantity + "' and" 
                 + " total='" + Itotal +  "'";
         try {
             Class.forName("com.mysql.jdbc.Driver");
