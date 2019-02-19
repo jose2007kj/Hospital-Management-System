@@ -486,7 +486,7 @@ public class PurchaseDeailsController implements Initializable {
             showError(n.getMessage());
         } catch (NullPointerException l) {
             System.out.print("delete error is "+l.getMessage());
-            showError(l.getMessage());
+//            showError(l.getMessage());
         } finally {
             try {
                 conn.close();
