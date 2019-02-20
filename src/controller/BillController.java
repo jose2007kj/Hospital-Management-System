@@ -8,7 +8,10 @@ package controller;
 import Main.Signin;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -28,6 +31,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -77,7 +82,7 @@ public class BillController implements Initializable {
 
     @FXML
     private Label patientIdLabel,itemNameLabel,billDateLabel,quantityLabel,costLabel;
-
+    Date today=new Date();
     String selectedPaientId2,selectedPaientId,patientID1,selectedItem,selectedPaientId1,selectedItem1,SName, billsDate, Iquantity, Icost;//, Pcontact;
 
     private static Connection conn = null;
@@ -119,10 +124,11 @@ public class BillController implements Initializable {
         costTF.getValidators().add(validator("Input is required"));
 //        patientContactTF.getValidators().add(validator("Input is required"));
 //	patientGenderTF.getValidators().add(validator("Input is required"));
-//
+//      InsertGridPane.add(today, 1, 5);
         billDate = new JFXDatePicker();
         billDate.setPrefWidth(240);
         billDate.setPrefHeight(41);
+        billDate.setValue(today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         InsertGridPane.add(billDate, 1, 5);
         fetchIname();
         fechPatientId();
@@ -141,6 +147,7 @@ public class BillController implements Initializable {
                             String[] temp=newName.split("\\.");
                             System.out.print("temp"+temp.length);
                             selectedPaientId=temp[0];
+                            selectedPaientId2=temp[1];
                         }catch(Exception e){
                             System.out.print("temp"+e.toString());
                         }
@@ -350,7 +357,8 @@ public class BillController implements Initializable {
                 String[] temp=ntemp.split("\\.");
                 System.out.print("temp"+temp.length);
                 selectedPaientId=temp[0];
-                selectedPaientId2=temp[0];
+//                selectedPaientId2=temp[0];
+                selectedPaientId2=temp[1];
             }catch(Exception e){
                 System.out.print("temp"+e.toString());
             }
@@ -430,23 +438,54 @@ public class BillController implements Initializable {
             Document my_pdf_report = new Document();
             PdfWriter.getInstance (my_pdf_report, new FileOutputStream("patient_bill.pdf"));
             my_pdf_report.open();     
-            PdfPTable table = new PdfPTable(5);
-//            PdfPCell table_cell;
-
-//            PdfPCell c1 = new PdfPCell(new Phrase("Bill No"));
+//            PdfPTable table = new PdfPTable(5);
+//            PdfPCell c1 = new PdfPCell(new Phrase("Bill date"));
 //            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 //            table.addCell(c1);
-
-            PdfPCell c1 = new PdfPCell(new Phrase("Bill date"));
+//
+//            c1 = new PdfPCell(new Phrase("Patient Id"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
+//             c1 = new PdfPCell(new Phrase("Item Name"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
+//            c1 = new PdfPCell(new Phrase("Quantity"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
+//            c1 = new PdfPCell(new Phrase("Cost"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
+//            table.setHeaderRows(1);
+//
+//            table.addCell(billList.get(index).getBillDate());
+//            table.addCell(selectedPaientId);
+//            table.addCell(billList.get(index).getItemName());
+//             table.addCell(billList.get(index).getQty());
+//            table.addCell(billList.get(index).getCost());
+//            my_pdf_report.add(table);                       
+//            my_pdf_report.close();
+            String text;
+            Font BOLDFont = new Font(Font.getFamily("TIMES_ROMAN"),12,Font.BOLD);
+           
+            text  = "\t ************Dr N K Jayaram Memorial Homeo Clinic************ ";
+            my_pdf_report.add(new Paragraph(text,BOLDFont));
+            text  = "\n \t =========================Bill Info=========================";
+            my_pdf_report.add(new Paragraph(text,BOLDFont)); 
+            text="\n \t Date :"+billDate.getValue().toString()+""
+                    + "\n \t Patient Name :"+ selectedPaientId2+"\n \t ==========================================================";
+            my_pdf_report.add(new Paragraph(text));
+             PdfPTable table = new PdfPTable(3);
+             
+            PdfPCell c1 = new PdfPCell(new Phrase("Item Name"));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
-
-            c1 = new PdfPCell(new Phrase("Patient Id"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-             c1 = new PdfPCell(new Phrase("Item Name"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
+//
+//            c1 = new PdfPCell(new Phrase("Patient Id"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
+//             c1 = new PdfPCell(new Phrase("Item Name"));
+//            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+//            table.addCell(c1);
             c1 = new PdfPCell(new Phrase("Quantity"));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
@@ -454,15 +493,14 @@ public class BillController implements Initializable {
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
             table.setHeaderRows(1);
-
-            table.addCell(billList.get(index).getBillDate());
-            table.addCell(selectedPaientId);
+//
+//            table.addCell(billList.get(index).getBillDate());
+//            table.addCell(selectedPaientId);
             table.addCell(billList.get(index).getItemName());
              table.addCell(billList.get(index).getQty());
             table.addCell(billList.get(index).getCost());
             my_pdf_report.add(table);                       
             my_pdf_report.close();
-            
         }catch(Exception e){
            showError(e.getMessage()); 
         }   

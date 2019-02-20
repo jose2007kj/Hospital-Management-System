@@ -115,7 +115,7 @@ public class ConsultationController implements Initializable {
         consultationDate.setPrefWidth(240);
         consultationDate.setPrefHeight(41);
         
-        InsertGridPane.add(consultationDate, 1, 3);
+        InsertGridPane.add(consultationDate, 1, 4);
         
         fechPatientId();
         

@@ -21,6 +21,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -67,7 +69,7 @@ public class StockController implements Initializable {
     private Label stockNameLabel,itemPriceLabel,expireyLabel,itemQuantityLabel;//,patientContactLabel,patientAddressLabel;
 
     String Sname,Iprice, Iquantity,Edate;// Paddress, , Pcontact;
-
+    Date today=new Date();
     private static Connection conn = null;
     private static PreparedStatement stat = null;
     private static String url = "jdbc:mysql://localhost:3306";
@@ -110,6 +112,7 @@ public class StockController implements Initializable {
         expiryDate = new JFXDatePicker();
         expiryDate.setPrefWidth(240);
         expiryDate.setPrefHeight(41);
+        expiryDate.setValue(today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         InsertGridPane.add(expiryDate, 1, 3);
 
 
