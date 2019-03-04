@@ -23,6 +23,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -74,7 +76,7 @@ public class PurchaseDeailsController implements Initializable {
     private Label supplierNameLabel,itemNameLabel,purchaseDateLabel,expiryDateLabel,quantityLabel,totalLabel;
 
     String selectedSup,selectedItem,selectedSup1,selectedItem1,SName, Edate, Pdate, Iquantity, Itotal;//, Pcontact;
-
+    Date today = new Date();
     private static Connection conn = null;
     private static PreparedStatement stat = null;
     private static String url = "jdbc:mysql://localhost:3306";
@@ -114,13 +116,15 @@ public class PurchaseDeailsController implements Initializable {
         totalTF.getValidators().add(validator("Input is required"));
 //        patientContactTF.getValidators().add(validator("Input is required"));
 //	patientGenderTF.getValidators().add(validator("Input is required"));
-//
+        totalTF.setEditable(false);
         purchaseDate = new JFXDatePicker();
         purchaseDate.setPrefWidth(240);
         purchaseDate.setPrefHeight(41);
 //        expiryDate = new JFXDatePicker();
 //        expiryDate.setPrefWidth(240);
 //        expiryDate.setPrefHeight(41);
+        purchaseDate.setValue(today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        
         InsertGridPane.add(purchaseDate, 1, 2);
 //        InsertGridPane.add(expiryDate, 1, 3);
         fetchSname();
@@ -128,15 +132,18 @@ public class PurchaseDeailsController implements Initializable {
 //        itemNameCB.setValue("Select Item Name");
         
         //code for onclick combobox
+        quantityTF.textProperty().addListener(change->totalUpdate());
         supplierNameCB.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue<? extends String> selected, String oldName, String newName) {
                     selectedSup=newName;
+                    
 
             }
         });
         itemNameCB.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue<? extends String> selected, String oldName, String newName) {
                     selectedItem=newName;
+                    totalUpdate();
 
             }
         });
@@ -251,6 +258,46 @@ public class PurchaseDeailsController implements Initializable {
                 -> 
                 showDetails(newValue)
         );
+    }
+    void totalUpdate(){
+        if(selectedItem!=null){
+        String sqlSelect = "select * from DrJayaramHomeoClinic.stock WHERE item_name='"+selectedItem+"'";
+
+        try {
+
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(url, username, Password);
+            stat = conn.prepareStatement(sqlSelect);
+
+            result = stat.executeQuery();
+
+            while (result.next()) {
+                int total=Integer.parseInt(result.getString(3))*Integer.parseInt(quantityTF.getText());
+                totalTF.setText(total+"");
+                System.out.print("result.getString(1)"+result.getString(1));
+                System.out.print("result.getString(2)"+result.getString(2));
+                System.out.print("result.getString(3)"+result.getString(3));
+//                System.out.print("result.getString(5)"+result.getString(5));
+//                itemList.add(new StockModel(result.getString(1), result.getString(2),result.getString(3)));
+
+            }
+//            itemNameCB.setItems(iName);
+        } catch (SQLException r) {
+            showError(r.getMessage());
+        } catch (ClassNotFoundException n) {
+            showError(n.getMessage());
+        } catch (NullPointerException l) {
+            showError(l.getMessage());
+        } finally {
+            try {
+                conn.close();
+                stat.close();
+            } catch (SQLException rr) {
+                showError(rr.getMessage());
+            }
+        }
+
+        }
     }
     void fetchSname() {
 

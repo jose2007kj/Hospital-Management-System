@@ -4,7 +4,7 @@ import Main.Signin;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
-import static controller.SubClinicFxmlDocumentController.showError;
+//import static controller.SubClinicFxmlDocumentController.showError;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;

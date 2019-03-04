@@ -102,10 +102,10 @@ public class SupplierWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        supNameTF.getValidators().add(validator("Input is required"));
-        supAddressTF.getValidators().add(validator("Input is required"));
-        branchTF.getValidators().add(validator("Input is required"));
-        contactTF.getValidators().add(validator("Input is required"));
+        supNameTF.getValidators().add(validator("Valid Input is required"));
+        supAddressTF.getValidators().add(validator("Valid Input is required"));
+        branchTF.getValidators().add(validator("Valid Input is required"));
+        contactTF.getValidators().add(validator("Valid 10 digit number is required"));
 //        treatmentTF.getValidators().add(validator("Input is required"));
 //
 //        datePicker = new JFXDatePicker();
@@ -277,6 +277,23 @@ public class SupplierWindowController implements Initializable {
 
     @FXML
     void insertPatientData(ActionEvent event) {
+        boolean temp=true;
+        try{
+        int contactNo=Integer.parseInt(contactTF.getText());
+        temp=true;
+        }catch(NumberFormatException ex) {
+        temp= false;
+    }
+         if (supNameTF.getText().isEmpty() || supAddressTF.getText().isEmpty()||contactTF.getText().isEmpty()||branchTF.getText().isEmpty()) {
+
+                supNameTF.validate();
+                supAddressTF.validate();
+                branchTF.validate();
+                contactTF.validate();
+//                
+            }else if(contactTF.getText().length()!=10||!temp){
+                showError("phone number must be 10 digit nuberical");
+            }else{
         try {
            
             insert(supNameTF.getText(), supAddressTF.getText(),branchTF.getText(),contactTF.getText());
@@ -296,7 +313,7 @@ public class SupplierWindowController implements Initializable {
         } catch (Exception f) {
             showError(f.getMessage());
 
-        }
+        }}
     }
 
     void addrowsToTable() {

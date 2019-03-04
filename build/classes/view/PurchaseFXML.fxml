@@ -17,7 +17,6 @@
 
 <!--<AnchorPane id="dentalAnchorPane" prefHeight="680.0" prefWidth="1300.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConsultationController">-->
 
-
 <AnchorPane id="dentalAnchorPane" prefHeight="680.0" prefWidth="1300.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PurchaseDeailsController">
    <children>
       <JFXTreeTableView fx:id="tableView" layoutX="288.0" layoutY="118.0" prefHeight="670.0" prefWidth="864.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="5.0">
@@ -53,9 +52,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="33.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="13.0" vgrow="SOMETIMES" />
                   <RowConstraints />
                   <RowConstraints />
               </rowConstraints>
@@ -65,8 +64,8 @@
                   <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expiry Date" GridPane.rowIndex="3" />-->
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="107.0" text="Quantity" GridPane.rowIndex="3" />
                   <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Total" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="supplierNameCB" layoutX="15.0" layoutY="33.0" prefHeight="58.0" prefWidth="99.0" promptText="choose Supplier Name" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                   <ComboBox fx:id="itemNameCB" layoutX="15.0" layoutY="33.0" prefHeight="58.0" prefWidth="99.0" promptText="choose Item Name" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <ComboBox fx:id="supplierNameCB" layoutX="15.0" layoutY="33.0" prefHeight="58.0" prefWidth="99.0" promptText="choose Supplier Name" GridPane.columnIndex="1" />
+                   <ComboBox fx:id="itemNameCB" layoutX="15.0" layoutY="33.0" prefHeight="58.0" prefWidth="99.0" promptText="choose Item Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                    <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Contact" GridPane.rowIndex="4" />-->
 <!--                  <Label alignment="CENTER" prefHeight="48.0" prefWidth="106.0" text="Treatment" GridPane.rowIndex="5" />
                   <Label alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Doctor Name" GridPane.rowIndex="1" />-->
@@ -74,8 +73,8 @@
                   <JFXTextField fx:id="patientAgeTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
                   <JFXTextField fx:id="quantityTF" focusColor="#00a761" maxWidth="132.0" minWidth="132.0" prefHeight="39.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <JFXTextField fx:id="totalTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <Label prefHeight="16.0" prefWidth="84.0" text="Supplier" GridPane.rowIndex="6" />
-                  <Label text="Item Name" GridPane.rowIndex="7" />
+                  <Label prefHeight="16.0" prefWidth="110.0" text="Supplier" />
+                  <Label prefHeight="16.0" prefWidth="111.0" text="Item Name" GridPane.rowIndex="1" />
 <!--                  <JFXTextField fx:id="patientContactTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                    <JFXTextArea fx:id="diagnosisTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4">
                   <GridPane.margin>
@@ -94,9 +93,9 @@
                   <Label alignment="CENTER" prefHeight="58.0" prefWidth="99.0" text="Supplier Name " />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="106.0" text="Item" GridPane.rowIndex="1" />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="107.0" text="Purchase Date" GridPane.rowIndex="2" />
-                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expiry Date" GridPane.rowIndex="3" />
-                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="106.0" text="Quantity" GridPane.rowIndex="4" />
-                  <Label alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Total" GridPane.rowIndex="5" />
+                  <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expiry Date" GridPane.rowIndex="3" />-->
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="106.0" text="Quantity" GridPane.rowIndex="3" />
+                  <Label alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Total" GridPane.rowIndex="4" />
                   <Label fx:id="supplierNameLabel" prefHeight="33.0" prefWidth="242.0" GridPane.columnIndex="1" />
                   <Label fx:id="itemNameLabel" prefHeight="38.0" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="purchaseDateLabel" prefHeight="51.0" prefWidth="251.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

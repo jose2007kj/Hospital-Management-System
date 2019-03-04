@@ -20,6 +20,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -70,7 +72,7 @@ public class ConsultationController implements Initializable {
     private Label patientIdLabel,consultationDateLabel,consultFeeLabel,consultStatusLabel,diseaseLabel,durationLabel,medicinePescribedLabel;//,supplierNameLabel,itemNameLabel,consultationDateLabel,expiryDateLabel,quantityLabel,totalLabel;
 
     String patientID,patientID1,consultationDate1,consultFee,consultStatus,disease,duration,medicinePescribed;
-
+    Date today =new Date();
     private static Connection conn = null;
     private static PreparedStatement stat = null,pStat=null;
     private static String url = "jdbc:mysql://localhost:3306";
@@ -114,6 +116,7 @@ public class ConsultationController implements Initializable {
         consultationDate = new JFXDatePicker();
         consultationDate.setPrefWidth(240);
         consultationDate.setPrefHeight(41);
+        consultationDate.setValue(today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         
         InsertGridPane.add(consultationDate, 1, 4);
         
