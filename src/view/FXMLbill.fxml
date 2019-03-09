@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import impl.org.controlsfx.skin.*?>
+<?import com.jfoenix.validation.*?>
+<?import org.controlsfx.control.textfield.*?>
+<?import org.controlsfx.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.BillController">
+   <children>
+      <Label layoutX="58.0" layoutY="58.0" text="Patien Name" />
+      <ComboBox fx:id="patientId" layoutX="183.0" layoutY="53.0" prefWidth="150.0" />
+      <JFXDatePicker fx:id="billDate" layoutX="436.0" layoutY="53.0" prefHeight="26.0" prefWidth="150.0" />
+      <Label layoutX="360.0" layoutY="58.0" prefHeight="16.0" prefWidth="71.0" text="Bill Date" />
+      <Label layoutX="58.0" layoutY="107.0" text="Item Name" />
+      <ComboBox fx:id="itemNameCB" layoutX="183.0" layoutY="102.0" prefWidth="150.0" />
+      <Label layoutX="60.0" layoutY="147.0" text="Quantity" />
+      <JFXTextField fx:id="quantityTF" layoutX="183.0" layoutY="142.0" prefHeight="26.0" prefWidth="150.0" />
+      <Label  layoutX="61.0" layoutY="189.0" text="Price" />
+      <JFXTextField fx:id="costTF" layoutX="185.0" layoutY="184.0" prefHeight="26.0" prefWidth="150.0" />
+      <JFXTreeTableView fx:id="tableView" layoutX="387.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0">
+<!--        <columns>
+          <TableColumn prefWidth="56.0" text="Item" />
+          <TableColumn text="Quantity" />
+            <TableColumn prefWidth="64.0" text="Amount" />
+        </columns>-->
+        <effect>
+            <DropShadow color="#e8e8e8" />
+         </effect>
+         <padding>
+            <Insets left="7.0" />
+         </padding>
+         <columnResizePolicy>
+            
+         </columnResizePolicy>
+      </JFXTreeTableView>
+      <JFXButton layoutX="291.0" layoutY="226.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" text="Add" />
+      <JFXButton layoutX="142.0" layoutY="342.0" mnemonicParsing="false" text="Save" onAction="#insertPatientData" />
+      <JFXButton layoutX="289.0" layoutY="342.0" mnemonicParsing="false" text="Exit" onAction="#back" />
+      <Label layoutX="387.0" layoutY="311.0" text="Total" />
+      <JFXTextField  layoutX="447.0" layoutY="306.0" prefHeight="26.0" prefWidth="137.0" />
+      <JFXButton fx:id="reportButton" layoutX="431.0" layoutY="342.0" mnemonicParsing="false" text="View" onAction="#generateReport" />
+   </children>
+</AnchorPane>

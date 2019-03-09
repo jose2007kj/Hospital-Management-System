@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 package controller;
-
 import Main.Signin;
+import java.awt.Desktop;
+import java.io.File;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
@@ -25,6 +26,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
 import java.io.FileOutputStream;
 import java.net.URL;
+import javafx.concurrent.Task;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -67,10 +69,11 @@ public class BillController implements Initializable {
     ObservableList<String> iName=FXCollections.observableArrayList();
     JFXDatePicker billDate;//,expiryDate;
     //    PdfWriter.getInstance(my_pdf_report, new FileOutputStream("pdf_report_from_sql_using_java.pdf"));
-    @FXML
-    private JFXTextField searchTF;
+//    @FXML
+//    private JFXTextField searchTF;
     @FXML // for combo box
     private ComboBox<String> patientId,itemNameCB;
+    
     @FXML
     private JFXTextField quantityTF,costTF;//,patientGenderTF,patientAddressTF,patientContactTF;
 //    @FXML
@@ -79,7 +82,8 @@ public class BillController implements Initializable {
     private JFXButton reportButton;
     @FXML
     private GridPane InsertGridPane;
-
+    String homeLocation=System.getProperty("user.home");
+    String pdfLocation=homeLocation+"/patient_bill.pdf";
     @FXML
     private Label patientIdLabel,itemNameLabel,billDateLabel,quantityLabel,costLabel;
     Date today=new Date();
@@ -92,7 +96,7 @@ public class BillController implements Initializable {
     private static String username = "mary";
     private static String sqlInsert;
     ResultSet result,pResult;
-
+      
     public static void showError(String msg) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error ");
@@ -126,16 +130,17 @@ public class BillController implements Initializable {
 //	patientGenderTF.getValidators().add(validator("Input is required"));
 //      InsertGridPane.add(today, 1, 5);
         billDate = new JFXDatePicker();
-        billDate.setPrefWidth(240);
-        billDate.setPrefHeight(41);
+//        billDate.setPrefWidth(240);
+//        billDate.setPrefHeight(41);
         billDate.setValue(today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        InsertGridPane.add(billDate, 1, 5);
+//        InsertGridPane.add(billDate, 1, 5);
         fetchIname();
         fechPatientId();
         reportButton.setVisible(false);
 //        itemNameCB.setValue("Select Item Name");
         
         //code for onclick combobox
+//        hs = 
         patientId.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override public void changed(ObservableValue<? extends String> selected, String oldName, String newName) {
 //                    selectedPaientId=newName;
@@ -243,39 +248,43 @@ public class BillController implements Initializable {
         addrowsToTable();
 
         TreeItem<billModel> root = new RecursiveTreeItem<billModel>(billList, RecursiveTreeObject::getChildren);
-        tableView.getColumns().addAll(PIdcoloumn, Bdatecoloumn, ItemNamecoloumn, costColoumn,QuantityColoumn);
+//        tableView.getColumns().addAll(PIdcoloumn, Bdatecoloumn, ItemNamecoloumn, costColoumn,QuantityColoumn);
+        tableView.getColumns().addAll(ItemNamecoloumn, costColoumn,QuantityColoumn);
+        
         tableView.setRoot(root);
         tableView.setShowRoot(false);
 
-        searchTF.textProperty().addListener(new ChangeListener<String>() {
-
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-
-                tableView.setPredicate(new Predicate<TreeItem<billModel>>() {
-
-                    @Override
-                    public boolean test(TreeItem<billModel> t) {
-
-                        boolean flag = t.getValue().patientId.getValue().contains(newValue)
-                                || t.getValue().itemName.getValue().contains(newValue)
-                                || t.getValue().billDate.getValue().contains(newValue)
-                                || t.getValue().cost.getValue().contains(newValue)
-                                || t.getValue().qty.getValue().contains(newValue);
-                        return flag;
-
-                    }
-                });
-            }
-
-        });
+//        searchTF.textProperty().addListener(new ChangeListener<String>() {
+//
+//            @Override
+//            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//
+//                tableView.setPredicate(new Predicate<TreeItem<billModel>>() {
+//
+//                    @Override
+//                    public boolean test(TreeItem<billModel> t) {
+//
+//                        boolean flag = t.getValue().patientId.getValue().contains(newValue)
+//                                || t.getValue().itemName.getValue().contains(newValue)
+//                                || t.getValue().billDate.getValue().contains(newValue)
+//                                || t.getValue().cost.getValue().contains(newValue)
+//                                || t.getValue().qty.getValue().contains(newValue);
+//                        return flag;
+//
+//                    }
+//                });
+//            }
+//
+//        });
 
         tableView.getSelectionModel().selectedItemProperty().addListener((Observable, oldValue, newValue)
                 -> 
                 showDetails(newValue)
         );
     }
-   
+//   public HostServices getHostServices() {
+//        return hs;
+//}
     void fechPatientId() {
 
         String sqlSelect = "select * from DrJayaramHomeoClinic.Patient ";
@@ -436,7 +445,7 @@ public class BillController implements Initializable {
      try{
             int index = tableView.getSelectionModel().getSelectedIndex();
             Document my_pdf_report = new Document();
-            PdfWriter.getInstance (my_pdf_report, new FileOutputStream("patient_bill.pdf"));
+            PdfWriter.getInstance (my_pdf_report, new FileOutputStream(pdfLocation));
             my_pdf_report.open();     
 //            PdfPTable table = new PdfPTable(5);
 //            PdfPCell c1 = new PdfPCell(new Phrase("Bill date"));
@@ -501,6 +510,36 @@ public class BillController implements Initializable {
             table.addCell(billList.get(index).getCost());
             my_pdf_report.add(table);                       
             my_pdf_report.close();
+            try{
+                if (!Desktop.isDesktopSupported()) {
+                System.out.println("Desktop not supported");
+                return;
+            }
+
+            if (!Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+                System.out.println("File opening not supported");
+                return;
+            }
+
+            final Task<Void> task = new Task<Void>() {
+                @Override
+                public Void call() throws Exception {
+                    try {
+                        Desktop.getDesktop().open(new File(pdfLocation));
+                    } catch (Exception e) {
+                        System.err.println(e.toString());
+                    }
+                    return null;
+                }
+            };
+
+            final Thread thread = new Thread(task);
+            thread.setDaemon(true);
+            thread.start();
+            }catch(Exception ex){
+                System.out.print("openin gpdf  error"+pdfLocation);
+                showError(ex.getMessage()); 
+            }
         }catch(Exception e){
            showError(e.getMessage()); 
         }   

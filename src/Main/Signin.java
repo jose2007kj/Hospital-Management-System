@@ -18,14 +18,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javafx.application.Application;
+//import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+import javafx.application.Application;
 /**
  *
  * @author mary
@@ -42,9 +42,12 @@ public class Signin extends Application {
     private static String Password = "";
     private static String username = "mary";
     private static String sqlInsert;
+//    public static HostServices hs;
+//    Application application; 
     ResultSet result;
     @Override
     public void start(Stage stage) throws Exception {
+        
         this.stage1 = stage;
         splashWindow();
     }
@@ -295,7 +298,7 @@ public class Signin extends Application {
                     
                     break;
                 case "Bill":
-                    loader = new FXMLLoader(Signin.class.getResource("/view/BillFxml.fxml"));
+                    loader = new FXMLLoader(Signin.class.getResource("/view/FXMLbill.fxml"));
                     pane = loader.load();
                     BillController bill=loader.getController();
                     bill.main(this, stage4);

@@ -8,11 +8,11 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="HospitalSystemPro.jar" size="7628930" download="eager" />
+    <jar href="HospitalSystemPro.jar" size="7592880" download="eager" />
     <jar href="lib/controlsfx-8.40.12.jar" size="1069605" download="eager" />
-    <jar href="lib/itextpdf-5.5.13.jar" size="2408757" download="eager" />
+    <jar href="lib/itextpdf-5.5.13.jar" size="2408756" download="eager" />
     <jar href="lib/jfoenix-8.0.8.jar" size="2809074" download="eager" />
-    <jar href="lib/mysql-connector-java-5.1.36.jar" size="1010597" download="eager" />
+    <jar href="lib/mysql-connector-java-5.1.36.jar" size="1010600" download="eager" />
   </resources>
 <security>
   <all-permissions/>
