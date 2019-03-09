@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.BillController">
+<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.BillController">
    <children>
       <Label layoutX="58.0" layoutY="58.0" text="Patien Name" />
       <ComboBox fx:id="patientId" layoutX="183.0" layoutY="53.0" prefWidth="150.0" />
@@ -44,11 +44,11 @@
             
          </columnResizePolicy>
       </JFXTreeTableView>
-      <JFXButton layoutX="291.0" layoutY="226.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" text="Add" />
+  <JFXButton layoutX="291.0" layoutY="226.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" text="Add" onAction="#addItem" />
       <JFXButton layoutX="142.0" layoutY="342.0" mnemonicParsing="false" text="Save" onAction="#insertPatientData" />
       <JFXButton layoutX="289.0" layoutY="342.0" mnemonicParsing="false" text="Exit" onAction="#back" />
       <Label layoutX="387.0" layoutY="311.0" text="Total" />
-      <JFXTextField  layoutX="447.0" layoutY="306.0" prefHeight="26.0" prefWidth="137.0" />
+      <JFXTextField fx:id="totalTF" layoutX="447.0" layoutY="306.0" prefHeight="26.0" prefWidth="137.0" />
       <JFXButton fx:id="reportButton" layoutX="431.0" layoutY="342.0" mnemonicParsing="false" text="View" onAction="#generateReport" />
    </children>
 </AnchorPane>
