@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
+import static controller.ConsultationController.showError;
 import java.io.Console;
 import java.net.URL;
 import java.sql.Connection;
@@ -109,6 +110,24 @@ public class StockController implements Initializable {
         itemPriceTF.getValidators().add(validator("Input is required"));
 //        patientContactTF.getValidators().add(validator("Input is required"));
 	itemQuanityTF.getValidators().add(validator("Input is required"));
+        itemPriceTF.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    itemPriceTF.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+          itemQuanityTF.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    itemQuanityTF.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         expiryDate = new JFXDatePicker();
         expiryDate.setPrefWidth(240);
         expiryDate.setPrefHeight(41);
@@ -288,7 +307,14 @@ public class StockController implements Initializable {
                 System.out.print("itemPriceTF.getText()"+itemPriceTF.getText());
 //                System.out.print("patientAddressTF.getText()"+patientAddressTF.getText());
                 System.out.print("itemQuanityTF.getText()"+itemQuanityTF.getText());
+        if ( stockNameTF.getText().isEmpty()||itemPriceTF.getText().isEmpty()||itemQuanityTF.getText().isEmpty()) {
 
+                stockNameTF.validate();
+                itemPriceTF.validate();
+                itemQuanityTF.validate();
+                
+//                
+            }else{
         try {
             
             insert(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText(),expiryDate.getValue().toString());
@@ -307,7 +333,7 @@ public class StockController implements Initializable {
         } catch (Exception f) {
             showError(f.getMessage());
 
-        }
+        }}
     }
 
     void addrowsToTable() {
@@ -382,8 +408,7 @@ public class StockController implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<StockModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        StockModel PatientModel = new StockModel(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText(),expiryDate.getValue().toString());
-        pModel.setValue(PatientModel);
+        
 //        System.out.print("Sname"+Sname);
 //        System.out.print("Saddress"+Saddress);
 //        System.out.print("Iprice"+Iprice);
@@ -393,12 +418,21 @@ public class StockController implements Initializable {
                 + " item_quantity='" + itemQuanityTF.getText()+"', expiry_date='" + expiryDate.getValue().toString()+ "', item_price='" + itemPriceTF.getText() + "' "
                 + " WHERE item_name='" + Sname+ "' and"
                 + " item_price='" + Iprice + "' and" + " item_quantity='" + Iquantity + "'";
+        if ( stockNameTF.getText().isEmpty()||itemPriceTF.getText().isEmpty()||itemQuanityTF.getText().isEmpty()) {
+
+                stockNameTF.validate();
+                itemPriceTF.validate();
+                itemQuanityTF.validate();
+                
+//                
+            }else{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlUpdat);
             stat.executeUpdate();
-
+            StockModel PatientModel = new StockModel(stockNameTF.getText(), itemPriceTF.getText(),itemQuanityTF.getText(),expiryDate.getValue().toString());
+        pModel.setValue(PatientModel);
         } catch (SQLException e) {
             showError(e.getMessage());
         } catch (ClassNotFoundException n) {
@@ -418,7 +452,7 @@ public class StockController implements Initializable {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
+        }}
     }
 
     @FXML

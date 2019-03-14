@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
+import static controller.SupplierWindowController.showError;
 import java.io.Console;
 import java.net.URL;
 import java.sql.Connection;
@@ -104,6 +105,24 @@ public class PatientConroller implements Initializable {
         patientNameTF.getValidators().add(validator("Input is required"));
         patientAddressTF.getValidators().add(validator("Input is required"));
         patientAgeTF.getValidators().add(validator("Input is required"));
+        patientAgeTF.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    patientAgeTF.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        patientContactTF.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    patientContactTF.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
         patientContactTF.getValidators().add(validator("Input is required"));
 	patientGenderTF.getValidators().add(validator("Input is required"));
 //
@@ -245,7 +264,18 @@ public class PatientConroller implements Initializable {
        
     }
 
-    private static void insert(String patientName, String patientAge, String patientAddress, String patientGender,String patientContact) {
+    private void insert(String patientName, String patientAge, String patientAddress, String patientGender,String patientContact) {
+        if (patientNameTF.getText().isEmpty() || patientAddressTF.getText().isEmpty()||patientGenderTF.getText().isEmpty()||patientContactTF.getText().isEmpty()) {
+
+                patientAddressTF.validate();
+                patientAgeTF.validate();
+                patientContactTF.validate();
+                patientGenderTF.validate();
+                patientNameTF.validate();
+//                
+            }else if(patientContactTF.getText().length()!=10){
+                showError("phone number must be 10 digit nuberical");
+            }else{
         try {
 
             sqlInsert = "INSERT INTO DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + "(patient_name,patient_age,patient_address,patient_gender,patient_contact) VALUES (?,?,?,?,?)";
@@ -262,7 +292,8 @@ public class PatientConroller implements Initializable {
             
 
             stat.executeUpdate();
-
+            patientsList.add(new patientsModel("0",patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText()));
+       
         } catch (SQLException ex) {
             showError(ex.getMessage());
         } catch (ClassNotFoundException ex) {
@@ -286,7 +317,7 @@ public class PatientConroller implements Initializable {
             } catch (SQLException ex) {
                 showError(ex.getMessage());
             }
-        }
+        }}
     }
 
     @FXML
@@ -299,8 +330,7 @@ public class PatientConroller implements Initializable {
         try {
             
             insert(patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText());
-            patientsList.add(new patientsModel("0",patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText()));
-       
+            
         }
         catch (NullPointerException cc) {
             showError("Please , All inputs are requires");
@@ -389,23 +419,37 @@ public class PatientConroller implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<patientsModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        patientsModel PatientModel = new patientsModel("0",patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText());
-        pModel.setValue(PatientModel);
+        
 //        System.out.print("Sname"+Sname);
 //        System.out.print("Saddress"+Saddress);
 //        System.out.print("Page"+Page);
 //        System.out.print("Pcontact"+Pcontact);
+
         
         String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET patient_name='" + patientNameTF.getText() + "' ,patient_address='" + patientAddressTF.getText() + "' , "
                 + " patient_gender='" + patientGenderTF.getText()+ "', patient_age='" + patientAgeTF.getText() + "',patient_contact='" + patientContactTF.getText() + "' "
                 + " WHERE patient_name='" + Pname+ "' and" + " patient_address='" + Paddress + "' and"
                 + " patient_age='" + Page + "' and" + " patient_gender='" + Pgender + "' and"
                 + " patient_contact='" + Pcontact +  "'";
+        
+        if (patientNameTF.getText().isEmpty() || patientAddressTF.getText().isEmpty()||patientGenderTF.getText().isEmpty()||patientContactTF.getText().isEmpty()) {
+
+                patientAddressTF.validate();
+                patientAgeTF.validate();
+                patientContactTF.validate();
+                patientGenderTF.validate();
+                patientNameTF.validate();
+//                
+            }else if(patientContactTF.getText().length()!=10){
+                showError("phone number must be 10 digit nuberical");
+            }else{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlUpdat);
             stat.executeUpdate();
+            patientsModel PatientModel = new patientsModel("0",patientNameTF.getText(), patientAgeTF.getText(),patientAddressTF.getText(),patientGenderTF.getText(),patientContactTF.getText());
+        pModel.setValue(PatientModel);
 
         } catch (SQLException e) {
             showError(e.getMessage());
@@ -426,7 +470,7 @@ public class PatientConroller implements Initializable {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
+        }}
     }
 
     @FXML

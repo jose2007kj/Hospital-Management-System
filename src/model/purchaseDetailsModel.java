@@ -13,18 +13,18 @@ import javafx.beans.property.StringProperty;
  * @author mary
  */
 public class purchaseDetailsModel extends RecursiveTreeObject<purchaseDetailsModel> {
-public StringProperty purchaseId;
+//public StringProperty purchaseId;
 public StringProperty supName;
-public StringProperty purchaseDate;
+//public StringProperty purchaseDate;
 public StringProperty itemName;
 //public StringProperty expiryDate;
 public StringProperty qty;
 public StringProperty total;
 //private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-public purchaseDetailsModel(String supName,String itemName,String purchaseDate,String qty,String total) {
-        this.supName=new SimpleStringProperty(supName);
-        this.purchaseDate=new SimpleStringProperty(purchaseDate);
+public purchaseDetailsModel(String itemName,String qty,String total) {
+//        this.supName=new SimpleStringProperty(supName);
+//        this.purchaseDate=new SimpleStringProperty(purchaseDate);
         this.itemName=new SimpleStringProperty(itemName);
 //        this.expiryDate=new SimpleStringProperty(expiryDate);
         this.qty=new SimpleStringProperty(qty);
@@ -33,13 +33,13 @@ public purchaseDetailsModel(String supName,String itemName,String purchaseDate,S
         
         
     }
-public String getPurchaseId() {
-return purchaseId.get();
-}
-
-public void setPurchaseId(String purchaseId) {
-this.purchaseId = new SimpleStringProperty(purchaseId);
-}
+//public String getPurchaseId() {
+//return purchaseId.get();
+//}
+//
+//public void setPurchaseId(String purchaseId) {
+//this.purchaseId = new SimpleStringProperty(purchaseId);
+//}
 
 public String getSupName() {
 return supName.get();
@@ -49,13 +49,13 @@ public void setSupName(String supName) {
 this.supName = new SimpleStringProperty(supName);
 }
 
-public String getPurchaseDate() {
-return purchaseDate.get();
-}
-
-public void setPurchaseDate(String purchaseDate) {
-this.purchaseDate = new SimpleStringProperty(purchaseDate);
-}
+//public String getPurchaseDate() {
+//return purchaseDate.get();
+//}
+//
+//public void setPurchaseDate(String purchaseDate) {
+//this.purchaseDate = new SimpleStringProperty(purchaseDate);
+//}
 
 public String getItemName() {
 return itemName.get();

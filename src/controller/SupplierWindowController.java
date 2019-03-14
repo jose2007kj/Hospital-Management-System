@@ -106,6 +106,19 @@ public class SupplierWindowController implements Initializable {
         supAddressTF.getValidators().add(validator("Valid Input is required"));
         branchTF.getValidators().add(validator("Valid Input is required"));
         contactTF.getValidators().add(validator("Valid 10 digit number is required"));
+        
+        contactTF.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    contactTF.setText(newValue.replaceAll("[^\\d]", ""));
+                    
+                }
+                if(contactTF.getText().length()!=10){
+                    contactTF.validate();}
+            }
+        });
 //        treatmentTF.getValidators().add(validator("Input is required"));
 //
 //        datePicker = new JFXDatePicker();
@@ -277,25 +290,29 @@ public class SupplierWindowController implements Initializable {
 
     @FXML
     void insertPatientData(ActionEvent event) {
-        boolean temp=true;
-        try{
-        int contactNo=Integer.parseInt(contactTF.getText());
-        temp=true;
-        }catch(NumberFormatException ex) {
-        temp= false;
-    }
+//        System.out.print("delete fjfjfj"+contactTF.getText());   
+//        String value=contactTF.getText();
+//        boolean temp=true;
+//        try{
+//        int contactNo=Integer.parseInt(value);
+//        temp=true;
+//        }catch(NumberFormatException ex) {
+//         System.out.print("delete"+ex.getMessage());   
+////         showError(ex.getMessage());   
+//        temp= false;
+//    }
          if (supNameTF.getText().isEmpty() || supAddressTF.getText().isEmpty()||contactTF.getText().isEmpty()||branchTF.getText().isEmpty()) {
 
                 supNameTF.validate();
                 supAddressTF.validate();
                 branchTF.validate();
-                contactTF.validate();
+//                contactTF.validate();
 //                
-            }else if(contactTF.getText().length()!=10||!temp){
+            }else if(contactTF.getText().length()!=10){
                 showError("phone number must be 10 digit nuberical");
             }else{
         try {
-           
+//            contactTF.getValidators().clear();
             insert(supNameTF.getText(), supAddressTF.getText(),branchTF.getText(),contactTF.getText());
             supplierList.add(new supplierModel(supNameTF.getText(),
             supAddressTF.getText(), branchTF.getText(), contactTF.getText()));
@@ -388,8 +405,7 @@ public class SupplierWindowController implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<supplierModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        supplierModel PatientModel = new supplierModel(supNameTF.getText(), supAddressTF.getText(), branchTF.getText(),contactTF.getText());
-        pModel.setValue(PatientModel);
+        
         System.out.print("Sname"+Sname);
         System.out.print("Saddress"+Saddress);
         System.out.print("Sbranch"+Sbranch);
@@ -400,12 +416,24 @@ public class SupplierWindowController implements Initializable {
                 + " WHERE sup_name='" + Sname + "' and" + " s_address='" + Saddress + "' and"
                 + " branch='" + Sbranch + "' and"
                 + " contact='" + Scontact +  "'";
+        if (supNameTF.getText().isEmpty() || supAddressTF.getText().isEmpty()||contactTF.getText().isEmpty()||branchTF.getText().isEmpty()) {
+
+                supNameTF.validate();
+                supAddressTF.validate();
+                branchTF.validate();
+//                contactTF.validate();
+//                
+            }else if(contactTF.getText().length()!=10){
+                showError("phone number must be 10 digit nuberical");
+            }else{
         try {
+//            contactTF.getValidators().clear();
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlUpdat);
             stat.executeUpdate();
-
+            supplierModel PatientModel = new supplierModel(supNameTF.getText(), supAddressTF.getText(), branchTF.getText(),contactTF.getText());
+            pModel.setValue(PatientModel);
         } catch (SQLException e) {
             showError(e.getMessage());
         } catch (ClassNotFoundException n) {
@@ -426,7 +454,7 @@ public class SupplierWindowController implements Initializable {
                 System.out.println(e.getMessage());
             }
         }
-    }
+    }}
 
     @FXML
     void clearFields(ActionEvent event) {

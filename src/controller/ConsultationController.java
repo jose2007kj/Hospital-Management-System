@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.RequiredFieldValidator;
+import static controller.SupplierWindowController.showError;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -108,6 +109,15 @@ public class ConsultationController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         consultFeeTF.getValidators().add(validator("Input is required"));
+        consultFeeTF.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, 
+                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    consultFeeTF.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
 //        durationTF.getValidators().add(validator("Input is required"));
         consultStatusTF.getValidators().add(validator("Input is required"));
 //        medicinePescribedTF.getValidators().add(validator("Input is required"));
@@ -396,7 +406,17 @@ public class ConsultationController implements Initializable {
 //                System.out.print("consultStatusTF.getText()"+consultStatusTF.getText());
 //                System.out.print("durationTF.getText()"+durationTF.getText());
 //                System.out.print("diseaseTF.getText()"+diseaseTF.getText());
+        if ( consultFeeTF.getText().isEmpty()||consultStatusTF.getText().isEmpty()||diseaseTF.getText().isEmpty()||durationTF.getText().isEmpty()||medicinePescribedTF.getText().isEmpty()) {
 
+                consultFeeTF.validate();
+                consultStatusTF.validate();
+                diseaseTF.validate();
+                durationTF.validate();
+                medicinePescribedTF.validate();
+//                
+            }else if(patientID=="patient"||patientID==null){
+                showError("please select a patient");
+            }else{
         try {
             
             insert(Integer.parseInt(patientID),consultationDate.getValue().toString(),Integer.parseInt(consultFeeTF.getText()),consultStatusTF.getText(),diseaseTF.getText(),durationTF.getText(),medicinePescribedTF.getText());
@@ -416,7 +436,7 @@ public class ConsultationController implements Initializable {
             showError(f.getMessage());
 
         }
-    }
+    }}
 
     void addrowsToTable() {
 
@@ -512,6 +532,17 @@ public class ConsultationController implements Initializable {
                 + " WHERE patient_id='" + Integer.parseInt(patientID)+ "' and" + " consult_date='" + consultationDate1 + "' and"
                 + " consult_fee='" + Integer.parseInt(consultFee) + "' and" + " consult_status='" + consultStatus + "' and" + " disease='" + disease + "' and" 
                 + " duration='" + duration + "' and" + " medicine_prescribed='" + medicinePescribed +  "'";
+        if ( consultFeeTF.getText().isEmpty()||consultStatusTF.getText().isEmpty()||diseaseTF.getText().isEmpty()||durationTF.getText().isEmpty()||medicinePescribedTF.getText().isEmpty()) {
+
+                consultFeeTF.validate();
+                consultStatusTF.validate();
+                diseaseTF.validate();
+                durationTF.validate();
+                medicinePescribedTF.validate();
+//                
+            }else if(patientID=="patient"||patientID==null){
+                showError("please select a patient");
+            }else{
         try {
             Class.forName("com.mysql.jdbc.Driver");
             System.out.print("Sname"+sqlUpdat);
@@ -540,7 +571,7 @@ public class ConsultationController implements Initializable {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
+        }}
     }
 
     @FXML

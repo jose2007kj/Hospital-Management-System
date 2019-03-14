@@ -15,7 +15,62 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!--<AnchorPane id="dentalAnchorPane" prefHeight="680.0" prefWidth="1300.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConsultationController">-->
+
+<AnchorPane id="AnchorPane" prefHeight="680.0" prefWidth="1300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="controller.PurchaseDeailsController">
+   <children>
+      <Label layoutX="58.0" layoutY="58.0" text="Supplier Name" />
+      <ComboBox fx:id="supplierNameCB" layoutX="183.0" layoutY="53.0" prefWidth="150.0" />
+      <JFXDatePicker fx:id="purchaseDate" layoutX="436.0" layoutY="53.0" prefHeight="26.0" prefWidth="150.0" />
+      <Label layoutX="360.0" layoutY="58.0" prefHeight="16.0" prefWidth="71.0" text="Purchase Date" />
+      <Label layoutX="58.0" layoutY="107.0" text="Item Name" />
+      <ComboBox fx:id="itemNameCB" layoutX="183.0" layoutY="102.0" prefWidth="150.0" />
+      <Label layoutX="60.0" layoutY="147.0" text="Quantity" />
+      <JFXTextField fx:id="quantityTF" layoutX="183.0" layoutY="142.0" prefHeight="26.0" prefWidth="150.0" />
+      <Label  layoutX="61.0" layoutY="189.0" text="Price" />
+      <JFXTextField fx:id="costTF" layoutX="185.0" layoutY="184.0" prefHeight="26.0" prefWidth="150.0" />
+      <JFXTreeTableView fx:id="tableView" layoutX="387.0" layoutY="87.0" prefHeight="200.0" prefWidth="200.0">
+<!--        <columns>
+          <TableColumn prefWidth="56.0" text="Item" />
+          <TableColumn text="Quantity" />
+            <TableColumn prefWidth="64.0" text="Amount" />
+        </columns>-->
+        <effect>
+            <DropShadow color="#e8e8e8" />
+         </effect>
+         <padding>
+            <Insets left="7.0" />
+         </padding>
+         <columnResizePolicy>
+            
+         </columnResizePolicy>
+      </JFXTreeTableView>
+  <JFXButton layoutX="291.0" layoutY="226.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="57.0" text="Add" onAction="#addItem" />
+      <JFXButton layoutX="142.0" layoutY="342.0" mnemonicParsing="false" text="Save" onAction="#insertPatientData" />
+      <JFXButton layoutX="289.0" layoutY="342.0" mnemonicParsing="false" text="Exit" onAction="#back" />
+      <Label layoutX="387.0" layoutY="311.0" text="Total" />
+      <JFXTextField fx:id="totalTF" layoutX="447.0" layoutY="306.0" prefHeight="26.0" prefWidth="137.0" />
+      <JFXButton fx:id="reportButton" layoutX="431.0" layoutY="342.0" mnemonicParsing="false" text="View" onAction="#generateReport" />
+   </children>
+</AnchorPane>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import impl.org.controlsfx.skin.*?>
+<?import com.jfoenix.validation.*?>
+<?import org.controlsfx.control.textfield.*?>
+<?import org.controlsfx.control.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="dentalAnchorPane" prefHeight="680.0" prefWidth="1300.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ConsultationController">
 
 <AnchorPane id="dentalAnchorPane" prefHeight="680.0" prefWidth="1300.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PurchaseDeailsController">
    <children>
@@ -61,21 +116,21 @@
                <children>
                    
                   <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Purchase Date " GridPane.rowIndex="2" />
-                  <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expiry Date" GridPane.rowIndex="3" />-->
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expiry Date" GridPane.rowIndex="3" />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="107.0" text="Quantity" GridPane.rowIndex="3" />
                   <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Total" GridPane.rowIndex="4" />
                   <ComboBox fx:id="supplierNameCB" layoutX="15.0" layoutY="33.0" prefHeight="58.0" prefWidth="99.0" promptText="choose Supplier Name" GridPane.columnIndex="1" />
                    <ComboBox fx:id="itemNameCB" layoutX="15.0" layoutY="33.0" prefHeight="58.0" prefWidth="99.0" promptText="choose Item Name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                   <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Contact" GridPane.rowIndex="4" />-->
-<!--                  <Label alignment="CENTER" prefHeight="48.0" prefWidth="106.0" text="Treatment" GridPane.rowIndex="5" />
-                  <Label alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Doctor Name" GridPane.rowIndex="1" />-->
-<!--                  <JFXTextField fx:id="patientNameTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="42.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" />
-                  <JFXTextField fx:id="patientAgeTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
+                   <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Contact" GridPane.rowIndex="4" />
+                  <Label alignment="CENTER" prefHeight="48.0" prefWidth="106.0" text="Treatment" GridPane.rowIndex="5" />
+                  <Label alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Doctor Name" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="patientNameTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="42.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" />
+                  <JFXTextField fx:id="patientAgeTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <JFXTextField fx:id="quantityTF" focusColor="#00a761" maxWidth="132.0" minWidth="132.0" prefHeight="39.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <JFXTextField fx:id="totalTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label prefHeight="16.0" prefWidth="110.0" text="Supplier" />
                   <Label prefHeight="16.0" prefWidth="111.0" text="Item Name" GridPane.rowIndex="1" />
-<!--                  <JFXTextField fx:id="patientContactTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                  <JFXTextField fx:id="patientContactTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
                    <JFXTextArea fx:id="diagnosisTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4">
                   <GridPane.margin>
                         <Insets bottom="20.0" left="7.0" right="10.0" />
@@ -85,7 +140,7 @@
                      <GridPane.margin>
                         <Insets bottom="20.0" left="7.0" right="10.0" />
                      </GridPane.margin>
-                  </JFXTextArea>-->
+                  </JFXTextArea>
                </children>
             </GridPane>
             <GridPane fx:id="viewGridPane1" alignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="389.0" prefHeight="277.0" prefWidth="368.0" style="-fx-background-color: #fff; -fx-border-color: #c9c9c9; -fx-border-radius: 5px;" vgap="10.0">
@@ -93,13 +148,13 @@
                   <Label alignment="CENTER" prefHeight="58.0" prefWidth="99.0" text="Supplier Name " />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="106.0" text="Item" GridPane.rowIndex="1" />
                   <Label alignment="CENTER" prefHeight="57.0" prefWidth="107.0" text="Purchase Date" GridPane.rowIndex="2" />
-                  <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expiry Date" GridPane.rowIndex="3" />-->
+                  <Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Expiry Date" GridPane.rowIndex="3" />
                   <Label alignment="CENTER" prefHeight="55.0" prefWidth="106.0" text="Quantity" GridPane.rowIndex="3" />
                   <Label alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Total" GridPane.rowIndex="4" />
                   <Label fx:id="supplierNameLabel" prefHeight="33.0" prefWidth="242.0" GridPane.columnIndex="1" />
                   <Label fx:id="itemNameLabel" prefHeight="38.0" prefWidth="253.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label fx:id="purchaseDateLabel" prefHeight="51.0" prefWidth="251.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <!--<Label fx:id="expiryDateLabel" prefHeight="78.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />-->
+                  <Label fx:id="expiryDateLabel" prefHeight="78.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label fx:id="quantityLabel" prefHeight="82.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label fx:id="totalLabel" prefHeight="77.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                </children>
@@ -135,4 +190,4 @@
          </effect>
       </Pane>
    </children>
-</AnchorPane>
+</AnchorPane>-->
