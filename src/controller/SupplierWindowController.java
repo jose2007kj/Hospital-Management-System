@@ -115,7 +115,7 @@ public class SupplierWindowController implements Initializable {
                     contactTF.setText(newValue.replaceAll("[^\\d]", ""));
                     
                 }
-                if(contactTF.getText().length()!=10){
+                if(newValue.length()!=10){
                     contactTF.validate();}
             }
         });
