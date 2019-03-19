@@ -402,11 +402,7 @@ public class ConsultationController implements Initializable {
 
     @FXML
     void insertPatientData(ActionEvent event) {
-//        System.out.print("consultFeeTF.getText()"+consultFeeTF.getText());
-//                System.out.print("consultStatusTF.getText()"+consultStatusTF.getText());
-//                System.out.print("durationTF.getText()"+durationTF.getText());
-//                System.out.print("diseaseTF.getText()"+diseaseTF.getText());
-        if ( consultFeeTF.getText().isEmpty()||consultStatusTF.getText().isEmpty()||diseaseTF.getText().isEmpty()||durationTF.getText().isEmpty()||medicinePescribedTF.getText().isEmpty()) {
+   if ( consultFeeTF.getText().isEmpty()||consultStatusTF.getText().isEmpty()||diseaseTF.getText().isEmpty()||durationTF.getText().isEmpty()||medicinePescribedTF.getText().isEmpty()) {
 
                 consultFeeTF.validate();
                 consultStatusTF.validate();
@@ -520,12 +516,6 @@ public class ConsultationController implements Initializable {
         int index = tableView.getSelectionModel().getSelectedIndex();
         TreeItem<CunsultationModel> pModel = tableView.getSelectionModel().getSelectedItem();
 
-        
-//        System.out.print("Sname"+Sname);
-//        System.out.print("Saddress"+Saddress);
-//        System.out.print("Iquantity"+Iquantity);
-//        System.out.print("Pcontact"+Pcontact);
-        
         String sqlUpdat = "UPDATE  DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " SET patient_id='" + Integer.parseInt(patientID) + "' ,consult_date='" + consultationDate.getValue().toString() + "' , "
                 + " consult_fee='" + Integer.parseInt(consultFeeTF.getText())+ "', consult_status='" + consultStatusTF.getText() +"',disease='" + diseaseTF.getText() + "',duration='" + durationTF.getText() + "',"
                 + "medicine_prescribed='" + medicinePescribedTF.getText() + "' "

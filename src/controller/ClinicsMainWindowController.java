@@ -214,6 +214,17 @@ public class ClinicsMainWindowController implements Initializable {
         } catch (Exception ex) {
         }
     }
+    public void OpenPatientReport(ActionEvent event){
+       try {
+            signin.pageName="PatientReport";
+            tableName = "Patient";
+            signin.clinicName = "Patient";
+            signin.SubClinicWindow();
+            signin.clinicsWindowClose();
+
+        } catch (Exception ex) {
+        } 
+    }
 
 
 }

@@ -310,6 +310,7 @@ public class Signin extends Application {
                     PatientConroller patientController=loader.getController();
                     patientController.main(this, stage4);
                     break;
+                
                    
                 default:
                     loader = new FXMLLoader(Signin.class.getResource("/view/dentalFxmlDocument.fxml"));

@@ -92,6 +92,8 @@
                   <Label fx:id="patientAddressLabel" prefHeight="78.0" prefWidth="259.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <Label fx:id="patientContactLabel" prefHeight="82.0" prefWidth="260.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <!--<Label fx:id="treatmentLabel" prefHeight="77.0" prefWidth="256.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />-->
+                  <JFXButton fx:id="reportButton" layoutX="431.0" layoutY="342.0" mnemonicParsing="false" text="View Patients Report" onAction="#generateReport" GridPane.columnIndex="1" GridPane.rowIndex="5" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" textFill="WHITE"/>
+   
                </children>
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.0" minWidth="10.0" prefWidth="106.0" />

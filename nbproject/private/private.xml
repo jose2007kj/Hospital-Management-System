@@ -6,6 +6,7 @@
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/Main/Signin.java</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/BillController.java</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/splashcontroller.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/StockModel.java</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/view/supplierFxmlDocument.fxml</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/aboutController.java</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/StockController.java</file>
@@ -16,11 +17,15 @@
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/view/signUpfxmlDocument.fxml</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/PurchaseDeailsController.java</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/SupplierWindowController.java</file>
-            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/view/FXMLbill.fxml</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/billModel.java</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/supplierModel.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/ClinicsMainWindowController.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/SigninFXMLController.java</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/patientsModel.java</file>
             <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/view/BillFxml.fxml</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/model/purchaseDetailsModel.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/signupFXMLConroller.java</file>
+            <file>file:/media/mary/27C9DE197703C004/kj_projects/16.04/miss/Hospital-Management-System-Project-Javafx-application-/src/controller/PatientConroller.java</file>
         </group>
     </open-files>
 </project-private>

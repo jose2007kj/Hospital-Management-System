@@ -33,12 +33,12 @@
                <font>
                   <Font size="13.0" />
                </font></JFXTextField>
-            <HBox layoutX="10.0" layoutY="52.0" prefHeight="36.0" prefWidth="368.0" spacing="5.0">
+            <HBox id="hbox_b" layoutX="10.0" layoutY="52.0" prefHeight="36.0" prefWidth="368.0" spacing="5.0">
                <children>
-                  <JFXButton id="InsertAndDeleteAndUpdateBtn" onAction="#insertPatientData" prefHeight="31.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" text="Insert" textFill="WHITE" />
-                  <JFXButton id="InsertAndDeleteAndUpdateBtn" onAction="#delelePatientRow" prefHeight="31.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" text="Delete" textFill="WHITE" />
-                  <JFXButton id="InsertAndDeleteAndUpdateBtn" onAction="#updatePatientRow" prefHeight="31.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" text="Update" textFill="WHITE" />
-                  <JFXButton id="InsertAndDeleteAndUpdateBtn" onAction="#clearFields" prefHeight="31.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" text="Clear " textFill="WHITE" />
+                  <JFXButton fx:id="InsertBtn" onAction="#insertPatientData" prefHeight="31.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" text="Insert" textFill="WHITE" />
+                  <JFXButton fx:id="DeleteBtn" onAction="#delelePatientRow" prefHeight="31.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" text="Delete" textFill="WHITE" />
+                  <JFXButton fx:id="UpdateBtn" onAction="#updatePatientRow" prefHeight="31.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" text="Update" textFill="WHITE" />
+                  <JFXButton fx:id="ClearBtn" onAction="#clearFields" prefHeight="31.0" prefWidth="124.0" ripplerFill="WHITE" style="-fx-background-color: #33cc94; -fx-background-radius: 5px;" text="Clear " textFill="WHITE" />
                </children>
             </HBox>
             <GridPane fx:id="InsertGridPane" alignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="98.0" prefHeight="277.0" prefWidth="368.0" style="-fx-background-color: #fff; -fx-border-color: #c9c9c9; -fx-border-radius: 5px;" vgap="10.0">
@@ -112,7 +112,7 @@
             </GridPane>
             <HBox layoutX="250.0" layoutY="5.0" prefHeight="33.0" prefWidth="132.0">
                <children>
-                  <JFXButton onAction="#deleteAll" prefHeight="39.0" prefWidth="84.0" text="Delete All" textFill="#009440" underline="true">
+                  <JFXButton fx:id="deletealljfx" onAction="#deleteAll" prefHeight="39.0" prefWidth="84.0" text="Delete All" textFill="#009440" underline="true">
                      <padding>
                         <Insets top="19.0" />
                      </padding>

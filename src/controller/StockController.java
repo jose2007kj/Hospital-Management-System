@@ -5,6 +5,7 @@
  */
 package controller;
 import Main.Signin;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -40,6 +41,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.StockModel;
@@ -57,14 +59,17 @@ public class StockController implements Initializable {
 //    JFXDatePicker datePicker;
     @FXML
     private JFXTextField searchTF;
-
+    @FXML
+    public JFXButton ClearBtn,DeleteBtn,UpdateBtn,InsertBtn,deletealljfx;
+    @FXML
+    private HBox hbox_b;
     @FXML
     private JFXTextField stockNameTF,itemPriceTF,itemQuanityTF;//,patientAddressTF,patientContactTF;
 //    @FXML
 //    private JFXTextArea treatmentTF, diagnosisTF;
 
     @FXML
-    private GridPane InsertGridPane;
+    private GridPane InsertGridPane,viewGridPane1;
 
     @FXML
     private Label stockNameLabel,itemPriceLabel,expireyLabel,itemQuantityLabel;//,patientContactLabel,patientAddressLabel;
@@ -77,6 +82,7 @@ public class StockController implements Initializable {
     private static String Password = "";
     private static String username = "mary";
     private static String sqlInsert;
+    private static String mode="pharmacyist";
     ResultSet result;
 
     public static void showError(String msg) {
@@ -93,6 +99,24 @@ public class StockController implements Initializable {
     public void main(Signin signin, Stage stage) {
         this.signin = signin;
         this.stage = stage;
+        System.out.println("doctor \n"+this.signin.role);
+        System.out.println("doctor main \n"+new java.util.Date());
+        if(this.signin.role.contains("doctor")){
+        this.mode="doctor";
+//      
+        
+        ClearBtn.setVisible(false);
+        DeleteBtn.setVisible(false);
+        UpdateBtn.setVisible(false);
+        InsertBtn.setVisible(false);
+        deletealljfx.setVisible(false);
+//        hbox_b.setVisible(false);
+        InsertGridPane.setVisible(false);
+        viewGridPane1.setVisible(false);
+        }
+//        if(this.mode.contains("doctor")){
+//        
+//        }
     }
 
     public  RequiredFieldValidator validator(String msg){
@@ -104,6 +128,7 @@ public class StockController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        System.out.println("doctor iniialise \n"+new java.util.Date());
         
         stockNameTF.getValidators().add(validator("Input is required"));
 //        patientAddressTF.getValidators().add(validator("Input is required"));

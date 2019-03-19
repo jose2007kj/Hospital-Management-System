@@ -67,31 +67,14 @@
                   <Label alignment="CENTER" prefHeight="25.0" prefWidth="128.0" text="Prescription" GridPane.rowIndex="9" />
                   
                   <ComboBox fx:id="patientIdCB" layoutX="15.0" layoutY="33.0" prefHeight="26.0" prefWidth="126.0" promptText="patient" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                   <!--<ComboBox fx:id="itemNameCB" layoutX="15.0" layoutY="33.0" prefHeight="58.0" prefWidth="99.0" promptText="choose Item Name" GridPane.rowIndex="7"/>-->
-                   <!--<Label alignment="CENTER" prefHeight="55.0" prefWidth="105.0" text="Contact" GridPane.rowIndex="4" />-->
-<!--                  <Label alignment="CENTER" prefHeight="48.0" prefWidth="106.0" text="Treatment" GridPane.rowIndex="5" />
-                  <Label alignment="CENTER" prefHeight="59.0" prefWidth="110.0" text="Doctor Name" GridPane.rowIndex="1" />-->
-<!--                  <JFXTextField fx:id="patientNameTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="42.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" />
-                  <JFXTextField fx:id="patientAgeTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="1" />-->
-                  <JFXTextField fx:id="consultFeeTF" focusColor="#00a761" maxWidth="132.0" minWidth="132.0" prefHeight="39.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                   <JFXTextField fx:id="consultFeeTF" focusColor="#00a761" maxWidth="132.0" minWidth="132.0" prefHeight="39.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <JFXTextField fx:id="consultStatusTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                   <JFXTextField fx:id="diseaseTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="42.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <JFXTextField fx:id="durationTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                  <JFXTextField fx:id="medicinePescribedTF" focusColor="#00a761" maxWidth="240.0" minWidth="240.0" prefHeight="41.0" prefWidth="240.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <Label prefHeight="16.0" prefWidth="118.0" text="Patient Name" GridPane.rowIndex="3" />
                   
-                  <!--              
-    <JFXTextField fx:id="patientContactTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
-                   <JFXTextArea fx:id="diagnosisTF" focusColor="#00a761" maxWidth="245.0" minWidth="209.0" prefHeight="58.0" prefWidth="245.0" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                  <GridPane.margin>
-                        <Insets bottom="20.0" left="7.0" right="10.0" />
-                     </GridPane.margin>
-                  </JFXTextArea>
-                  <JFXTextArea fx:id="treatmentTF" focusColor="#00a761" unFocusColor="#828282" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <GridPane.margin>
-                        <Insets bottom="20.0" left="7.0" right="10.0" />
-                     </GridPane.margin>
-                  </JFXTextArea>-->
+                  
                </children>
             </GridPane>
             <GridPane fx:id="viewGridPane1" alignment="CENTER" hgap="10.0" layoutX="10.0" layoutY="389.0" prefHeight="277.0" prefWidth="368.0" style="-fx-background-color: #fff; -fx-border-color: #c9c9c9; -fx-border-radius: 5px;" vgap="10.0">

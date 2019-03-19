@@ -102,7 +102,7 @@
             </Pane>
 <!--            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #3ce17f;" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <JFXButton id="labels" alignment="BOTTOM_CENTER" layoutX="-1.0" onAction="#OpenClinicWindow4" prefHeight="152.0" prefWidth="276.0" text="Bill" textFill="WHITE">
+                  <JFXButton id="labels" alignment="BOTTOM_CENTER" layoutX="-1.0" onAction="#OpenPatientReport" prefHeight="152.0" prefWidth="276.0" text="Patient Report" textFill="WHITE">
                      <font>
                         <Font size="19.0" />
                      </font>
