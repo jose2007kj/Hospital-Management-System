@@ -22,7 +22,7 @@
       </Label>
       <Label alignment="TOP_LEFT" layoutX="226.0" layoutY="84.0" prefHeight="82.0" prefWidth="302.0" text="Is developed for managing and manipulating  the Dr NK Jayaram Memorial Homeo Clinics patient data  ." wrapText="true" />
       <Label layoutX="218.0" layoutY="158.0" text="Developed by  " />
-      <Label layoutX="300.0" layoutY="158.0" text=" MARY JOSEPH" underline="true">
+      <Label layoutX="323.0" layoutY="158.0" prefHeight="18.0" prefWidth="112.0" text=" MARY JOSEPH" underline="true">
          <font>
             <Font size="14.0" />
          </font>

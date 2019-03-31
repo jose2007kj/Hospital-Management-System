@@ -492,6 +492,7 @@ public class ConsultationController implements Initializable {
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlSelect);
             stat.executeUpdate();
+            CunsultationList.remove(index);
             clear();
         } catch (SQLException r) {
             showError(r.getMessage());

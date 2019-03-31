@@ -374,13 +374,14 @@ public class SupplierWindowController implements Initializable {
     void delelePatientRow(ActionEvent event) {
         try {
             int index = tableView.getSelectionModel().getSelectedIndex();
-//            supplierList.remove(index);
+            
             System.out.print("delete"+supplierList.get(index).getName());
             String sqlSelect = "delete  from DrJayaramHomeoClinic." + ClinicsMainWindowController.tableName + " where sup_name='" + supplierList.get(index).getName()+"'";
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlSelect);
             stat.executeUpdate();
+            supplierList.remove(index);
             clear();
         } catch (SQLException r) {
             showError(r.getMessage());

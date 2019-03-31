@@ -395,6 +395,7 @@ public class PatientConroller implements Initializable {
             conn = DriverManager.getConnection(url, username, Password);
             stat = conn.prepareStatement(sqlSelect);
             stat.executeUpdate();
+            patientsList.remove(index);
             clear();
         } catch (SQLException r) {
             showError(r.getMessage());
